@@ -12,16 +12,3 @@ C:\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.DataAccess\obj\Debug\CUCMarca.DataAcc
 C:\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.DataAccess\obj\Debug\CUCMarca.DataAccess.csproj.CopyComplete
 C:\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.DataAccess\obj\Debug\CUCMarca.DataAccess.dll
 C:\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.DataAccess\obj\Debug\CUCMarca.DataAccess.pdb
-C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.DataAccess\bin\Debug\CUCMarca.DataAccess.dll.config
-C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.DataAccess\bin\Debug\CUCMarca.DataAccess.dll
-C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.DataAccess\bin\Debug\CUCMarca.DataAccess.pdb
-C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.DataAccess\bin\Debug\EntityFramework.dll
-C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.DataAccess\bin\Debug\EntityFramework.SqlServer.dll
-C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.DataAccess\bin\Debug\EntityFramework.xml
-C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.DataAccess\bin\Debug\EntityFramework.SqlServer.xml
-C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.DataAccess\bin\Debug\es\EntityFramework.resources.dll
-C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.DataAccess\bin\Debug\es\EntityFramework.SqlServer.resources.dll
-C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.DataAccess\obj\Debug\CUCMarca.DataAccess.csproj.CoreCompileInputs.cache
-C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.DataAccess\obj\Debug\CUCMarca.DataAccess.csproj.CopyComplete
-C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.DataAccess\obj\Debug\CUCMarca.DataAccess.dll
-C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.DataAccess\obj\Debug\CUCMarca.DataAccess.pdb
