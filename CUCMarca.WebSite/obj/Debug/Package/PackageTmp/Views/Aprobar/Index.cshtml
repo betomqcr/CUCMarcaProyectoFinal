@@ -1,0 +1,287 @@
+﻿@using CUCMarca.WebSite.Models
+@using System.Collections.Generic
+@{
+
+    ViewBag.Title = "Aprobar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<style>
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content/Box */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%; /* Could be more or less, depending on screen size */
+    }
+
+    /* The Close Button */
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+</style>
+<h2>Justificaciones</h2>
+@if (TempData["Success"] != null)
+{
+    <script>
+        bootbox.alert({
+            message: "@TempData["Success"]",
+            backdrop: false,
+            callback: function () {
+                location.reload();
+            }
+
+        })
+
+    </script>
+
+
+}
+<table id="tablai" class="display responsive nowrap" width="100%">
+    <thead>
+        <tr>
+            <th>
+                Nombre del Funcionario
+            </th>
+            <th>
+                Fecha de inconsistencia
+            </th>
+            <th>
+                Fecha de Justificacion
+            </th>
+            <th>
+                Repone Tiempo
+            </th>
+            <th>
+                Fecha Reposición
+            </th>
+            <th>
+                Motivo
+            </th>
+            <th>
+                Observaciones
+            </th>
+            <th>
+
+            </th>
+            <th>
+                Procesar
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var element in (List<AprobarM>)ViewBag.lista)
+        {
+            if (element.FechaAutorizacion != null )
+            {
+        <tr>
+            <td>@element.NombreFuncionario</td>
+            @if (element.tipo.ToLower() == "justificación")
+            {
+                <td><a href="#" class="verincon" inco="@element.InconsistenciaID">@element.FechaInconsistencia.ToShortDateString()</a></td>
+            }
+            else
+            {
+                <td>@element.FechaInconsistencia.ToShortDateString()</td>
+            }
+
+            <td>@element.FechaJustificacion.ToShortDateString()</td>
+
+            @if (element.ReponeTiempo)
+            {
+                <td>Si</td>
+                <td>@element.FechaReposicion.ToShortDateString()</td>
+            }
+            else
+            {
+                <td>No</td>
+                <td></td>
+
+            }
+            <td>@element.Motivo</td>
+            <td>@element.tipo : @element.Observaciones</td>
+            <td style="text-align: center"><button class="fas fa-thumbs-down btn-primary btn-circle" tgt="btndescartar" value="@element.JustificacionID" cf="@element.CodigoFuncionario" tipoe="@element.tipo"></button></td>
+            <td style="text-align: center"><button class="fas fa-thumbs-up btn-primary btn-circle" tgt="btnmodal" value="@element.JustificacionID" cf="@element.CodigoFuncionario" tipoe="@element.tipo"></button></td>
+
+        </tr>
+            }
+        }
+    </tbody>
+</table>
+<script>
+    $(document).ready(function () {
+
+        $("#tablai").DataTable({
+            responsive: true,
+            "paging": false,
+            "ordering": false,
+            "info": false,
+            "searching": false
+        });
+
+        $(".verincon").click(function () {
+            var id = this.attributes["inco"].value
+
+            var str = "";
+            $.ajax({
+                url : "@ViewBag.url/api/Inconsistencias?idinconsistencia=" + id,
+                type: 'GET',
+                async: false,
+                success: function (data) {
+                    str = data;
+                }
+            });
+
+            var mensaje = "ID inconsistecia: " + str["InconsistenciaID"] + "<br>Nombre Area: " + str["NombreArea"] + "<br>Tipo Inconsistencia: " + str["TipoInconsistencia"] + "<br>Fecha Inconsistencia: " + str["FechaInconsistencia"] ;
+            
+
+            bootbox.alert({
+                message: "<h3>Información</h3><br>" + mensaje,
+                backdrop: false,
+                });
+        });
+
+        $('#tablai').on('click', 'tbody td, tbody span.dtr-data', function (e) {
+            if (e.target.attributes["tgt"].value == 'btnmodal') {
+                var id = e.target.value;
+                var codf = e.target.attributes["cf"].value;
+
+                var tipoex = false;
+                if (e.target.attributes["tipoe"].value == "Excepción") {
+                    tipoex = true;
+                }
+                bootbox.confirm({
+                        message: "Desea aprobar esta solicitud?",
+                        backdrop: false,
+                        buttons: {
+                            confirm: {
+                                label: 'Si',
+                                className: 'btn-success'
+                            },
+                            cancel: {
+                                label: 'No',
+                                className: 'btn-danger'
+                            }
+                        },
+                        callback: function (result) {
+
+                            if (result) {
+
+                                $.ajax({
+                                    url: '@ViewBag.url/api/Jefes?aprobar=true&idjustificacion=' + id + "&idFuncionario=" + codf + "&excepcion=" + tipoex,
+                                    type: 'POST',
+                                    success: function (data) {
+                                        if (data != "")
+                                            bootbox.alert({
+                                                message: "Se ha aprobado correctamente la solicitud",
+                                                backdrop: false,
+                                                callback: function () {
+                                                    location.reload();
+                                                }
+                                            })
+                                    }
+                                });
+                            }
+                            else {
+                                bootbox.alert({
+                                    message: "Se ha cancelado la acción",
+                                    backdrop: false,
+                                })
+                            }
+                        }
+                    });
+
+            }
+            else if (e.target.attributes["tgt"].value == 'btndescartar'){
+                var id = e.target.value;
+                var codf = e.target.attributes["cf"].value;
+
+                var tipoex = false;
+                if (e.target.attributes["tipoe"].value == "Excepción") {
+                    tipoex = true;
+                }
+                bootbox.confirm({
+                    message: "Desea rechazar esta solicitud?",
+                        backdrop: false,
+                        buttons: {
+                            confirm: {
+                                label: 'Si',
+                                className: 'btn-success'
+                            },
+                            cancel: {
+                                label: 'No',
+                                className: 'btn-danger'
+                            }
+                        },
+                        callback: function (result) {
+
+                            if (result) {
+
+                                $.ajax({
+                                    url: '@ViewBag.url/api/Jefes?aprobar=false&idjustificacion=' + id + "&idFuncionario=" + codf + "&excepcion=" + tipoex,
+                                    type: 'POST',
+                                    success: function (data) {
+                                        if (data != "")
+                                            bootbox.alert({
+                                                message: "Se ha rechazado correctamente la solicitud",
+                                                backdrop: false,
+                                                callback: function () {
+                                                    location.reload();
+                                                }
+                                            })
+                                    }
+                                });
+                            }
+                            else {
+                                bootbox.alert({
+                                    message: "Se ha cancelado la acción",
+                                    backdrop: false,
+                                })
+                            }
+                        }
+                    });
+            }
+        });
+
+
+    });
+</script>
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CUCMarcaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Area">
+    <Key>
+      <PropertyRef Name="AreaID" />
+    </Key>
+    <Property Name="AreaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="TipoArea" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Asistencia">
+    <Key>
+      <PropertyRef Name="AsistenciaID" />
+    </Key>
+    <Property Name="AsistenciaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FuncionarioID" Type="int" Nullable="false" />
+    <Property Name="FechaAsistencia" Type="datetime" Nullable="false" />
+    <Property Name="TipoMarca" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="Actividad" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="Comentarios" Type="varchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Funcionario">
+    <Key>
+      <PropertyRef Name="FuncionarioID" />
+    </Key>
+    <Property Name="FuncionarioID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TipoIdentificacionID" Type="int" Nullable="false" />
+    <Property Name="Identificacion" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Apellido" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="TipoFuncionarioID" Type="int" Nullable="false" />
+    <Property Name="AreaID" Type="int" Nullable="false" />
+    <Property Name="Correo" Type="varchar" MaxLength="300" Nullable="false" />
+    <Property Name="Contrasena" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TipoFuncionario">
+    <Key>
+      <PropertyRef Name="TipoFuncionarioID" />
+    </Key>
+    <Property Name="TipoFuncionarioID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TipoIdentificacion">
+    <Key>
+      <PropertyRef Name="TipoIdentificacionID" />
+    </Key>
+    <Property Name="TipoIdentificacionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Asistencia_Funcionario">
+    <End Role="Funcionario" Type="Self.Funcionario" Multiplicity="1" />
+    <End Role="Asistencia" Type="Self.Asistencia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Funcionario">
+        <PropertyRef Name="FuncionarioID" />
+      </Principal>
+      <Dependent Role="Asistencia">
+        <PropertyRef Name="FuncionarioID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Funcionario_Area">
+    <End Role="Area" Type="Self.Area" Multiplicity="1" />
+    <End Role="Funcionario" Type="Self.Funcionario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Area">
+        <PropertyRef Name="AreaID" />
+      </Principal>
+      <Dependent Role="Funcionario">
+        <PropertyRef Name="AreaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Funcionario_TipoFuncionario">
+    <End Role="TipoFuncionario" Type="Self.TipoFuncionario" Multiplicity="1" />
+    <End Role="Funcionario" Type="Self.Funcionario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoFuncionario">
+        <PropertyRef Name="TipoFuncionarioID" />
+      </Principal>
+      <Dependent Role="Funcionario">
+        <PropertyRef Name="TipoFuncionarioID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Funcionario_TipoIdentificacion">
+    <End Role="TipoIdentificacion" Type="Self.TipoIdentificacion" Multiplicity="1" />
+    <End Role="Funcionario" Type="Self.Funcionario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoIdentificacion">
+        <PropertyRef Name="TipoIdentificacionID" />
+      </Principal>
+      <Dependent Role="Funcionario">
+        <PropertyRef Name="TipoIdentificacionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CUCMarcaModelStoreContainer">
+    <EntitySet Name="Area" EntityType="Self.Area" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Asistencia" EntityType="Self.Asistencia" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Funcionario" EntityType="Self.Funcionario" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TipoFuncionario" EntityType="Self.TipoFuncionario" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TipoIdentificacion" EntityType="Self.TipoIdentificacion" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Asistencia_Funcionario" Association="Self.FK_Asistencia_Funcionario">
+      <End Role="Funcionario" EntitySet="Funcionario" />
+      <End Role="Asistencia" EntitySet="Asistencia" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Funcionario_Area" Association="Self.FK_Funcionario_Area">
+      <End Role="Area" EntitySet="Area" />
+      <End Role="Funcionario" EntitySet="Funcionario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Funcionario_TipoFuncionario" Association="Self.FK_Funcionario_TipoFuncionario">
+      <End Role="TipoFuncionario" EntitySet="TipoFuncionario" />
+      <End Role="Funcionario" EntitySet="Funcionario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Funcionario_TipoIdentificacion" Association="Self.FK_Funcionario_TipoIdentificacion">
+      <End Role="TipoIdentificacion" EntitySet="TipoIdentificacion" />
+      <End Role="Funcionario" EntitySet="Funcionario" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

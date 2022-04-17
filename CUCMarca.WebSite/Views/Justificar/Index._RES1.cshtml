@@ -1,0 +1,161 @@
+﻿@model CUCMarca.WebSite.Models.JustificarM
+
+
+@{
+    ViewBag.Title = "Justificar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!---Script for populate Table-->
+<script src="~/Scripts/src/methods/PopolateTableJ.js"></script>
+<script>
+        $(document).ready(function () {
+
+            cargarTabla2("@ViewBag.url", "@ViewBag.user");
+
+        });
+</script>
+
+
+<!---Script for dropwdown Motivos-->
+<script src="~/Scripts/src/methods/ListarMotivosJ.js"></script>
+<script>
+        $(document).ready(function () {
+            cargarcombo1("@ViewBag.url");
+
+        });
+
+</script>
+
+<!---Script for Enable FechaReposicion-->
+<script src="~/Scripts/src/methods/IfReponeTiempo.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#FechaReposicion").prop("disabled", true);
+        HabilitarFechaRepone();
+
+    });
+
+</script>
+
+@*
+    <script src="~/Scripts/src/methods/ValidaFechaExcepcion.js"></script>
+    <script>
+        $(document).ready(function () {
+            validateFecha("@ViewBag.hora");
+
+
+        });
+
+    </script>
+
+    <script src="~/Scripts/src/methods/ValidaFechaRepone.js"></script>
+    <script>
+        $(document).ready(function () {
+            validateFecha();
+
+
+        });
+
+    </script>
+*@
+<button id="togbtn" class="fa fas fa-plus btn btn-primary btn-circle" style="float: right"></button>
+
+<div class="container">
+
+    <!-- Outer Row -->
+    <div class="row justify-content-center">
+
+        <div class="col-xl-10 col-lg-12 col-md-9">
+
+            <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card-body p-0">
+                    <!-- Nested Row within Card Body -->
+                    <div class="row">
+
+
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Justificaciones</h1>
+                            </div>
+                            @using (Html.BeginForm())
+                            {
+                                @Html.ValidationSummary(true, "Error durante el proceso de ingreso", new { @class = "text-danger" })
+                                @Html.AntiForgeryToken()
+                                <table class="table table-bordered table-responsive table-hover" id="tablaExepcion">
+                                    <tr>
+                                        <th>Código de funcionario</th>
+                                        <th>Fecha de inconsistencia</th>
+                                        <th> Descripción</th>
+                                        <th>Procesar</th>
+                                        
+                                    </tr>
+
+                                </table>
+                                <hr>
+                                <ul id="addexcep" style="visibility:collapse;">
+
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-4">Nueva Justificación</h1>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Repone Tiempo</label>
+                                        @Html.DropDownListFor(x => x.ReponeTiempo, Model.reponet, new { @class = "form-control form-control-user" })
+
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Fecha de Reposción</label>
+                                        @Html.EditorFor(x => x.FechaReposicion, new { htmlAttributes = new { @class = "form-control form-control-user", @maxlenght = 20, @placeholder = "Fecha de Reposición" } })
+                                        @Html.ValidationMessageFor(x => x.FechaReposicion, "", htmlAttributes: new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Observación</label>
+                                        @Html.EditorFor(x => x.Observacion, new { htmlAttributes = new { @class = "form-control form-control-user", @maxlenght = 20, @placeholder = "Observación" } })
+                                        @Html.ValidationMessageFor(x => x.Observacion, "", htmlAttributes: new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group">
+                                        @*<label>Motivo</label>*@
+                                        @Html.LabelFor(x => x.idMotivo)
+
+                                        @Html.DropDownListFor(model => model.idMotivo, Model.Motivo, new { @class = "form-control form-control-user" })
+
+                                    </div>
+                                    @Html.HiddenFor(x => x.CodigoInconsistencia, new { id = "hcodigo" })
+                                    @Html.HiddenFor(x => x.CodigoFuncionario, new { id = "hcodigoF" })
+
+                                    <input type="submit" value="Crear Justificación" class="btn btn-primary btn-user btn-block" />
+                                </ul>
+                            }
+                            <hr>
+
+                            <script>
+
+                                $("#togbtn").click(function () {
+
+                                    if ($("#addexcep").hasClass("toggled")) {
+                                        $("#addexcep").removeClass("toggled");
+                                        $("#addexcep").css("visibility", "visible");
+                                    }
+                                    else {
+                                        $("#addexcep").addClass("toggled");
+                                        $("#addexcep").css("visibility", "collapse");
+
+                                    }
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+

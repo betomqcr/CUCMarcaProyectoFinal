@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CUCMarcaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Area">
+    <Key>
+      <PropertyRef Name="AreaID" />
+    </Key>
+    <Property Name="AreaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TipoArea" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Funcionario" Relationship="Self.FK_Funcionario_Area" FromRole="Area" ToRole="Funcionario" />
+  </EntityType>
+  <EntityType Name="Asistencia">
+    <Key>
+      <PropertyRef Name="AsistenciaID" />
+    </Key>
+    <Property Name="AsistenciaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FuncionarioID" Type="Int32" Nullable="false" />
+    <Property Name="FechaAsistencia" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="TipoMarca" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Actividad" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Comentarios" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Funcionario" Relationship="Self.FK_Asistencia_Funcionario" FromRole="Asistencia" ToRole="Funcionario" />
+  </EntityType>
+  <EntityType Name="Funcionario">
+    <Key>
+      <PropertyRef Name="FuncionarioID" />
+    </Key>
+    <Property Name="FuncionarioID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TipoIdentificacionID" Type="Int32" Nullable="false" />
+    <Property Name="Identificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TipoFuncionarioID" Type="Int32" Nullable="false" />
+    <Property Name="AreaID" Type="Int32" Nullable="false" />
+    <Property Name="Correo" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Contrasena" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Area" Relationship="Self.FK_Funcionario_Area" FromRole="Funcionario" ToRole="Area" />
+    <NavigationProperty Name="Asistencia" Relationship="Self.FK_Asistencia_Funcionario" FromRole="Funcionario" ToRole="Asistencia" />
+    <NavigationProperty Name="TipoFuncionario" Relationship="Self.FK_Funcionario_TipoFuncionario" FromRole="Funcionario" ToRole="TipoFuncionario" />
+    <NavigationProperty Name="TipoIdentificacion" Relationship="Self.FK_Funcionario_TipoIdentificacion" FromRole="Funcionario" ToRole="TipoIdentificacion" />
+  </EntityType>
+  <EntityType Name="TipoFuncionario">
+    <Key>
+      <PropertyRef Name="TipoFuncionarioID" />
+    </Key>
+    <Property Name="TipoFuncionarioID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Funcionario" Relationship="Self.FK_Funcionario_TipoFuncionario" FromRole="TipoFuncionario" ToRole="Funcionario" />
+  </EntityType>
+  <EntityType Name="TipoIdentificacion">
+    <Key>
+      <PropertyRef Name="TipoIdentificacionID" />
+    </Key>
+    <Property Name="TipoIdentificacionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Funcionario" Relationship="Self.FK_Funcionario_TipoIdentificacion" FromRole="TipoIdentificacion" ToRole="Funcionario" />
+  </EntityType>
+  <Association Name="FK_Funcionario_Area">
+    <End Role="Area" Type="Self.Area" Multiplicity="1" />
+    <End Role="Funcionario" Type="Self.Funcionario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Area">
+        <PropertyRef Name="AreaID" />
+      </Principal>
+      <Dependent Role="Funcionario">
+        <PropertyRef Name="AreaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Asistencia_Funcionario">
+    <End Role="Funcionario" Type="Self.Funcionario" Multiplicity="1" />
+    <End Role="Asistencia" Type="Self.Asistencia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Funcionario">
+        <PropertyRef Name="FuncionarioID" />
+      </Principal>
+      <Dependent Role="Asistencia">
+        <PropertyRef Name="FuncionarioID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Funcionario_TipoFuncionario">
+    <End Role="TipoFuncionario" Type="Self.TipoFuncionario" Multiplicity="1" />
+    <End Role="Funcionario" Type="Self.Funcionario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoFuncionario">
+        <PropertyRef Name="TipoFuncionarioID" />
+      </Principal>
+      <Dependent Role="Funcionario">
+        <PropertyRef Name="TipoFuncionarioID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Funcionario_TipoIdentificacion">
+    <End Role="TipoIdentificacion" Type="Self.TipoIdentificacion" Multiplicity="1" />
+    <End Role="Funcionario" Type="Self.Funcionario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoIdentificacion">
+        <PropertyRef Name="TipoIdentificacionID" />
+      </Principal>
+      <Dependent Role="Funcionario">
+        <PropertyRef Name="TipoIdentificacionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CUCMarcaEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Area" EntityType="Self.Area" />
+    <EntitySet Name="Asistencia" EntityType="Self.Asistencia" />
+    <EntitySet Name="Funcionario" EntityType="Self.Funcionario" />
+    <EntitySet Name="TipoFuncionario" EntityType="Self.TipoFuncionario" />
+    <EntitySet Name="TipoIdentificacion" EntityType="Self.TipoIdentificacion" />
+    <AssociationSet Name="FK_Funcionario_Area" Association="Self.FK_Funcionario_Area">
+      <End Role="Area" EntitySet="Area" />
+      <End Role="Funcionario" EntitySet="Funcionario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Asistencia_Funcionario" Association="Self.FK_Asistencia_Funcionario">
+      <End Role="Funcionario" EntitySet="Funcionario" />
+      <End Role="Asistencia" EntitySet="Asistencia" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Funcionario_TipoFuncionario" Association="Self.FK_Funcionario_TipoFuncionario">
+      <End Role="TipoFuncionario" EntitySet="TipoFuncionario" />
+      <End Role="Funcionario" EntitySet="Funcionario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Funcionario_TipoIdentificacion" Association="Self.FK_Funcionario_TipoIdentificacion">
+      <End Role="TipoIdentificacion" EntitySet="TipoIdentificacion" />
+      <End Role="Funcionario" EntitySet="Funcionario" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

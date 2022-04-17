@@ -1,0 +1,14 @@
+C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.DataAccess\bin\Release\CUCMarca.DataAccess.dll.config
+C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.DataAccess\bin\Release\CUCMarca.DataAccess.dll
+C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.DataAccess\bin\Release\CUCMarca.DataAccess.pdb
+C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.DataAccess\bin\Release\EntityFramework.dll
+C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.DataAccess\bin\Release\EntityFramework.SqlServer.dll
+C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.DataAccess\bin\Release\EntityFramework.xml
+C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.DataAccess\bin\Release\EntityFramework.SqlServer.xml
+C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.DataAccess\bin\Release\es\EntityFramework.resources.dll
+C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.DataAccess\bin\Release\es\EntityFramework.SqlServer.resources.dll
+C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.DataAccess\obj\Release\CUCMarca.DataAccess.csproj.CoreCompileInputs.cache
+C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.DataAccess\obj\Release\CUCMarca.DataAccess.csproj.CopyComplete
+C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.DataAccess\obj\Release\CUCMarca.DataAccess.dll
+C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.DataAccess\obj\Release\CUCMarca.DataAccess.pdb
+C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.DataAccess\obj\Release\CUCMarca.DataAccess.csproj.AssemblyReference.cache

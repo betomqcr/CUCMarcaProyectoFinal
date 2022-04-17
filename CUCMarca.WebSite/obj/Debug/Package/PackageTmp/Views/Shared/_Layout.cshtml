@@ -1,0 +1,200 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/Scripts/jquery-3.5.0.js"></script>
+    <script src="~/Scripts/jquery-3.5.0.min.js"></script>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="~/Scripts/bootstrap.js" type="text/javascript"></script>
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+
+    <link href="~/sbadmin/css/sb-admin-2.min.css" rel="stylesheet" />
+    <link href="~/Content/CUC.css" rel="stylesheet" type="text/css">
+    <script src="~/Scripts/popper.js" type="text/javascript"></script>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="~/Content/fontawesome-all.min.css" rel="stylesheet">
+    
+    <script src="~/Scripts/bootbox.min.js"></script>
+    <script src="~/Scripts/bootbox.locales.min.js"></script>
+    <link href="~/Content/brands.css" type="text/css" rel="stylesheet" />
+    <link href="~/Content/solid.css" type="text/css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/responsive/2.2.5/css/responsive.bootstrap.min.css" type="text/css" rel="stylesheet" />
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap.min.js"></script>
+    <link href="~/Content/css/jquery.dataTables.min.css" type="text/css" rel="stylesheet" />
+    <script src="https://cdn.datatables.net/responsive/2.2.5/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.5/js/responsive.bootstrap.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+
+</head>
+<body>
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href='@Url.Action("index", "Justificar")'>
+                <div class="sidebar-brand-icon">
+                    <i class="fas fa-user-clock"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">Marcas</div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href='@Url.Action("index", "Justificar")'>
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Inicio</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Mantenimientos
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Inconsistencias</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+
+                        <a class="collapse-item" href='@Url.Action("index", "Justificar")'>Justificar</a>
+                        <a class="collapse-item" href='@Url.Action("index", "Exepcion")'>Excepciones</a>
+                        @if (ViewBag.admin == true)
+                        {
+                            <a class="collapse-item" href='@Url.Action("index", "Aprobar")'>Aprobar</a>
+                        }
+
+
+                    </div>
+                </div>
+            </li>
+
+            
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle" onclick="return false;"></button>
+                <script>
+                    
+                    $("#sidebarToggle").click(function () {
+
+                        if ($("#accordionSidebar").hasClass("toggled")) {
+                            $("#accordionSidebar").removeClass("toggled");
+                        }
+                        else {
+                            $("#accordionSidebar").addClass("toggled");
+                        }
+                    });
+                </script>
+            </div>
+
+        </ul>
+
+        <!-- End of Sidebar -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3" onclick="return false;">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <script>
+
+                        $("#sidebarToggleTop").click(function () {
+
+                            if ($("#accordionSidebar").hasClass("toggled")) {
+                                $("#accordionSidebar").removeClass("toggled");
+                            }
+                            else {
+                                $("#accordionSidebar").addClass("toggled");
+                            }
+                        });
+                    </script>
+
+
+
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <ul class="navbar-nav mr-auto">
+
+                            <li class="nav-item dropdown no-arrow">
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small"></span>
+                                    <img class="img-profile rounded-circle" src="~/img/user-blue.png">
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                    <a class="dropdown-item" href="@Url.Action("PassChange", "login")"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Cambiar Clave</a>
+
+
+                                <!-- Dropdown - User Information -->
+                                    <a class="dropdown-item" href="@Url.Action("index", "login", new { modulo = 2})"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Salir</a>
+
+
+                                </div>
+                            </li>
+                        </ul>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Content Rows -->
+                    <!-------------------------CONTENIDO----------------------------------->
+
+                    @RenderBody()
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright © CUC 2020</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <script>
+
+    </script>
+</body>
+</html>

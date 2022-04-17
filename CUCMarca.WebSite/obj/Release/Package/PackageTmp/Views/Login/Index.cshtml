@@ -1,0 +1,164 @@
+﻿@model CUCMarca.WebSite.Models.Login
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Control de ingreso y salida - LOGIN</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <script src="~/Scripts/jquery-3.5.0.js" type="text/javascript"></script>
+    <script src="~/Scripts/bootbox.js" type="text/javascript"></script>
+    <script src="~/Scripts/bootstrap.js" type="text/javascript"></script>
+    <link href="~/Content/CUC.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="~/Content/sb-admin-2.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gradient-primary">
+    <nav class="navbar navbar-fixed-top navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Colegio Universitario de Cartago</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#" id="helpPnl">&iquest;Necesita ayuda? <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="@Url.Action("Index", "Asistencia")" id="marcaid">Marcar <span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!--
+
+        el url para la lista de codigos de usuario es :
+        http://localhost/CUCMarca/api/FuncionarioAreas/?id=113111111
+        cambie el 113111111 por el id del funcionario, llame esto desde un ajax o desde el controlador.
+        -->
+    @if (TempData["Success"] != null)
+    {
+        <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
+    }
+    <div class="container">
+
+        <!-- Outer Row -->
+        <div class="row justify-content-center">
+
+            <div class="col-xl-10 col-lg-12 col-md-9">
+
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <!-- Nested Row within Card Body -->
+                        <div class="row">
+                            <div class="col-lg-6 d-none d-lg-block bg-login-image-cuc"></div>
+                            <div class="col-lg-6">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-4">¡Bienvenido!</h1>
+                                    </div>
+                                    @using (Html.BeginForm())
+                                    {
+                                        @Html.ValidationSummary(true, "Error durante el proceso de ingreso", new { @class = "text-danger" })
+                                        @Html.AntiForgeryToken()
+                                <div class="form-group">
+                                    @Html.EditorFor(x => x.identificacion, new { htmlAttributes = new { @class = "form-control form-control-user", @maxlenght = 20, @placeholder = "Digite su código" } })
+                                    @Html.ValidationMessageFor(x => x.identificacion, "", htmlAttributes: new { @class = "text-danger" })
+
+                                </div>
+                                <div class="form-group">
+                                    @Html.PasswordFor(x => x.Contraseña, new { @class = "form-control form-control-user", @maxlenght = 50, @placeholder = "Contraseña..." })
+                                    @Html.ValidationMessageFor(x => x.Contraseña, "", htmlAttributes: new { @class = "text-danger" })
+
+                                </div>
+                                    @Html.HiddenFor(x => x.moulo, new { id = "hdmodulo" });
+                                        <input type="submit" value="Ingresar" id="btnLogin" class="btn btn-primary btn-user btn-block" />
+                                    }
+                                    <hr>
+                                    <div class="text-center">
+                                        <a class="small" href="@Url.Action("Olvido", "Login")">¿Olvidó su contraseña?</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="padding:35px 50px;">
+                    <h4><span class="far fa-file"></span> Ayuda</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body" style="padding:40px 50px;">
+                    <!--TEXTO DE LA AYUDA-------------------------------------------->
+                    <label>Ayuda para el ingreso:</label>
+
+                    <p>
+                        Por medio de esta pantalla puede ingresar al sitio para justificar las inconsistencias que tenga como Funcionario.
+                    </p>
+                    <!--FIN TEXTO DE LA AYUDA-------------------------------------------->
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/Scripts/jquery-3.5.0.min.js"></script>
+    <script src="~/Scripts/bootstrap.bundle.min.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="~/Vendors/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="~/Scripts/sb-admin-2.min.js"></script>
+    <script>
+        $(function () {
+            $('[data-toggle="popover"]').popover()
+        })
+
+        $(document).ready(function () {
+            $("#helpPnl").click(function () {
+                $("#myModal").modal();
+            });
+            $("#hdmodulo").val("@ViewBag.modulo");
+            
+           
+
+
+        });
+    </script>
+
+</body>
+
+</html>

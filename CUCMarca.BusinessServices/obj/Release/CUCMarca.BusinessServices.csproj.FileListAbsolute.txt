@@ -1,0 +1,17 @@
+C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.BusinessServices\bin\Release\CUCMarca.BusinessServices.dll.config
+C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.BusinessServices\bin\Release\CUCMarca.BusinessServices.dll
+C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.BusinessServices\bin\Release\CUCMarca.BusinessServices.pdb
+C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.BusinessServices\bin\Release\CUCMarca.DataAccess.dll
+C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.BusinessServices\bin\Release\EntityFramework.dll
+C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.BusinessServices\bin\Release\EntityFramework.SqlServer.dll
+C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.BusinessServices\bin\Release\CUCMarca.DataAccess.pdb
+C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.BusinessServices\bin\Release\CUCMarca.DataAccess.dll.config
+C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.BusinessServices\bin\Release\EntityFramework.xml
+C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.BusinessServices\bin\Release\EntityFramework.SqlServer.xml
+C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.BusinessServices\bin\Release\es\EntityFramework.resources.dll
+C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.BusinessServices\bin\Release\es\EntityFramework.SqlServer.resources.dll
+C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.BusinessServices\obj\Release\CUCMarca.BusinessServices.csproj.AssemblyReference.cache
+C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.BusinessServices\obj\Release\CUCMarca.BusinessServices.csproj.CoreCompileInputs.cache
+C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.BusinessServices\obj\Release\CUCMarca.BusinessServices.csproj.CopyComplete
+C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.BusinessServices\obj\Release\CUCMarca.BusinessServices.dll
+C:\Proyectos\ProyectoUFinal\Marcar\CUCMarca\CUCMarca.BusinessServices\obj\Release\CUCMarca.BusinessServices.pdb

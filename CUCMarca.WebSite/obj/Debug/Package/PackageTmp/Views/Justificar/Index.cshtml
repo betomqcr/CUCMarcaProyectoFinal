@@ -1,0 +1,311 @@
+﻿@using CUCMarca.WebSite.Models
+@using System.Collections.Generic
+@model CUCMarca.WebSite.Models.JustificarM
+@{ ViewBag.Title = "Justificar";
+    Layout = "~/Views/Shared/_Layout.cshtml"; }
+
+
+
+
+<style>
+    /* The Modal (background) */
+    .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }
+
+    /* Modal Content/Box */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto; /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%; /* Could be more or less, depending on screen size */
+    }
+
+    /* The Close Button */
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+</style>
+<h2>Justificaciones</h2>@*<button id="togbtn" class="fa fas fa-plus btn btn-primary btn-circle" style="float: right"></button>*@
+@if (TempData["Success"] != null)
+{
+<script>
+        bootbox.alert({
+            message: "@TempData["Success"]",
+            backdrop: false,
+            callback: function () {
+                location.reload();
+            }
+
+        })
+
+</script>
+}
+
+
+
+<table id="tablai" class="display responsive nowrap" width="100%">
+    <thead>
+        <tr>
+            <th>
+                Código de funcionario
+            </th>
+            <th>
+                Fecha de inconsistencia
+            </th>
+            <th>
+                Descripción
+            </th>
+            <th>
+            </th>
+            <th>
+                Procesar
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var element in (List<ResultadoI>)ViewBag.lista)
+        {
+            if (element.Estado != 4 && element.Estado != 3)
+            {
+<tr>
+    <td>@element.CodigoFuncionario @element.NombreArea</td>
+    <td>@element.FechaInconsistencia</td>
+    <td>@element.TipoInconsistencia</td>
+
+    @if (element.Estado == 1)
+    {
+<td style="text-align: center"><button class="fas fa-calendar-times btn-primary btn-circle" tgt="btndescartar" value="@element.InconsistenciaID"></button></td>
+                        <td style="text-align: center"><button class="fas fa-share-square btn-primary btn-circle" tgt="btnmodal" value="@element.InconsistenciaID" cf="@element.CodigoFuncionario"></button></td>
+}
+    @if (element.Estado == 2)
+    {
+<td style="text-align: center"><i class="fas fa-user-edit"></i></td>
+                        <td style="text-align: center">Por Aprobar</td>
+}
+</tr>
+}
+}
+    </tbody>
+</table>
+<script>
+    $(document).ready(function () {
+
+        $("#FechaReposicion").attr('disabled', 'disabled');
+
+        //$("#tablai").DataTable();
+        $("#tablai").DataTable({
+            responsive: true,
+            "paging": false,
+            "ordering": false,
+            "info": false,
+            "searching": false
+        });
+        // Get the modal
+        var modal = document.getElementById("myModal");
+
+        //var table = $('#tablai').DataTable();
+
+        //new $.fn.dataTable.Responsive(table, {
+        //    details: false
+        //});
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on the button, open the modal
+        $("#myBtn").click(function () {
+            $("#txtval").val("valor seleccionado " + this.value);
+
+            modal.style.display = "block";
+        });
+        $('#tablai').on('click', 'tbody td, tbody span.dtr-data', function (e) {
+            if (e.target.attributes["tgt"].value == 'btnmodal') {
+                $("#hcodigo").val(e.target.value);
+                $("#hcodigoF").val(e.target.getAttribute("cf"));
+                modal.style.display = "block";
+            }
+            else if (e.target.attributes["tgt"].value == 'btndescartar'){
+                var id = e.target.value;
+            bootbox.confirm({
+                message: "Desea descartar esta inconsistencia?",
+                backdrop: false,
+                buttons: {
+                    confirm: {
+                        label: 'Si',
+                        className: 'btn-success'
+                    },
+                    cancel: {
+                        label: 'No',
+                        className: 'btn-danger'
+                    }
+                },
+                callback: function (result) {
+
+                    if (result) {
+
+                        $.ajax({
+                            url: '@ViewBag.url/api/Inconsistencias?id=' + id,
+                            type: 'PUT',
+                            success: function (data) {
+                                if (data != "")
+                                    bootbox.alert({
+                                        message: "Se ha descartado correctamente la inconsistencia",
+                                        backdrop: false,
+                                        callback: function () {
+                                            location.reload();
+                                        }
+                                    })
+                            }
+                        });
+                    }
+                    else {
+                        bootbox.alert({
+                            message: "Se ha cancelado la acción",
+                            backdrop: false,
+                        })
+                    }
+                }
+            });
+            }
+        });
+        //solo funciona en web, en responsivo no
+        //$(".btnmodal_").click(function () {
+
+        //    $("#hcodigo").val(this.value);
+        //    $("#hcodigoF").val(this.getAttribute("cf"));
+        //    modal.style.display = "block";
+        //});
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        };
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        };
+
+        $("#ReponeTiempo").change(function () {
+            if ($("#ReponeTiempo option:selected").val() == "True") {
+                $("#FechaReposicion").removeAttr('disabled');
+            }
+            else {
+                $("#FechaReposicion").attr('disabled', 'disabled');
+            }
+
+        });
+        $.ajax({
+            url: '@ViewBag.url/api/Motivoes',
+            type: 'GET',
+            success: function (data) {
+                if (data != "") {
+                    //var lista = JSON.parse(data);
+
+                    for (var i = 0; i < data.length; i++) {
+                        $("#idMotivo").append(new Option(data[i].nombre, data[i].MotivoID ));
+                    }
+
+                }
+            }
+        });
+
+    });
+</script>
+
+
+<!-- The Modal -->
+
+<div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        @*<ul id="addexcep" style="visibility:collapse;">*@
+        <span class="close">&times;</span>
+        @*<ul id="addexcep" style="visibility:visible;">*@
+
+
+            @using (Html.BeginForm())
+            {
+@Html.ValidationSummary(true, "Error durante el proceso de ingreso", new { @class = "text-danger" })
+                @Html.AntiForgeryToken()
+
+                                <div class="form-group">
+                                    <label>Repone Tiempo</label>
+                                    @Html.DropDownListFor(x => x.ReponeTiempo, Model.reponet, new { @class = "form-control form-control-user" })
+
+
+                                </div>
+                                                <div class="form-group">
+                                                    <label>Fecha de Reposción</label>
+                                                    @Html.EditorFor(x => x.FechaReposicion, new { htmlAttributes = new { @class = "form-control form-control-user", @maxlenght = 20, @placeholder = "Fecha de Reposición" } })
+                                                    @Html.ValidationMessageFor(x => x.FechaReposicion, "", htmlAttributes: new { @class = "text-danger" })
+                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <label>Observación</label>
+                                                                    @Html.EditorFor(x => x.Observacion, new { htmlAttributes = new { @class = "form-control form-control-user", @maxlenght = 20, @placeholder = "Observación" } })
+                                                                    @Html.ValidationMessageFor(x => x.Observacion, "", htmlAttributes: new { @class = "text-danger" })
+                                                                </div>
+                                                                                <div class="form-group">
+                                                                                    <label>Motivo</label>
+                                                                                    @Html.DropDownListFor(x => x.idMotivo, Model.Motivo, new { @class = "form-control form-control-user" })
+
+                                                                                </div>
+                                                                                                @Html.HiddenFor(x => x.CodigoInconsistencia, new { id = "hcodigo" })
+                                                                                                                @Html.HiddenFor(x => x.CodigoFuncionario, new { id = "hcodigoF" })
+                                                                                                                                <button style="float: right" class="fas fa-clipboard-check btn-primary btn-circle" type="submit"></button>}
+        @*</ul>*@
+    </div>
+
+
+</div>
+
+
+<script>
+
+    $("#togbtn").click(function () {
+
+        if ($("#addexcep").hasClass("toggled")) {
+            $("#addexcep").removeClass("toggled");
+            $("#addexcep").css("visibility", "visible");
+        }
+        else {
+            $("#addexcep").addClass("toggled");
+            $("#addexcep").css("visibility", "collapse");
+
+        }
+    });
+</script>
+
+
+
+
+
+
+
+
+

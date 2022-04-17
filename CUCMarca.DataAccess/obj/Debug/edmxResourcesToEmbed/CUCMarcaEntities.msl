@@ -1,0 +1,250 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CUCMarcaModelStoreContainer" CdmEntityContainer="CUCMarcaEntities">
+    <EntitySetMapping Name="C__MigrationHistory">
+      <EntityTypeMapping TypeName="CUCMarcaModel.C__MigrationHistory">
+        <MappingFragment StoreEntitySet="__MigrationHistory">
+          <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+          <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Area">
+      <EntityTypeMapping TypeName="CUCMarcaModel.Area">
+        <MappingFragment StoreEntitySet="Area">
+          <ScalarProperty Name="AreaID" ColumnName="AreaID" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="TipoAreaID" ColumnName="TipoAreaID" />
+          <ScalarProperty Name="Jefe" ColumnName="Jefe" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Asistencia">
+      <EntityTypeMapping TypeName="CUCMarcaModel.Asistencia">
+        <MappingFragment StoreEntitySet="Asistencia">
+          <ScalarProperty Name="AsistenciaID" ColumnName="AsistenciaID" />
+          <ScalarProperty Name="CodigoFuncionario" ColumnName="CodigoFuncionario" />
+          <ScalarProperty Name="FechaAsistencia" ColumnName="FechaAsistencia" />
+          <ScalarProperty Name="TipoMarca" ColumnName="TipoMarca" />
+          <ScalarProperty Name="Actividad" ColumnName="Actividad" />
+          <ScalarProperty Name="Comentarios" ColumnName="Comentarios" />
+          <ScalarProperty Name="DireccionIP" ColumnName="DireccionIP" />
+          <ScalarProperty Name="Latitud" ColumnName="Latitud" />
+          <ScalarProperty Name="Longitud" ColumnName="Longitud" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetRoles">
+      <EntityTypeMapping TypeName="CUCMarcaModel.AspNetRoles">
+        <MappingFragment StoreEntitySet="AspNetRoles">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserClaims">
+      <EntityTypeMapping TypeName="CUCMarcaModel.AspNetUserClaims">
+        <MappingFragment StoreEntitySet="AspNetUserClaims">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+          <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserLogins">
+      <EntityTypeMapping TypeName="CUCMarcaModel.AspNetUserLogins">
+        <MappingFragment StoreEntitySet="AspNetUserLogins">
+          <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+          <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUsers">
+      <EntityTypeMapping TypeName="CUCMarcaModel.AspNetUsers">
+        <MappingFragment StoreEntitySet="AspNetUsers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+          <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+          <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+          <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+          <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+          <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Bitacora">
+      <EntityTypeMapping TypeName="CUCMarcaModel.Bitacora">
+        <MappingFragment StoreEntitySet="Bitacora">
+          <ScalarProperty Name="Identificador" ColumnName="Identificador" />
+          <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+          <ScalarProperty Name="Accion" ColumnName="Accion" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+          <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Excepcion">
+      <EntityTypeMapping TypeName="CUCMarcaModel.Excepcion">
+        <MappingFragment StoreEntitySet="Excepcion">
+          <ScalarProperty Name="ExcepcionID" ColumnName="ExcepcionID" />
+          <ScalarProperty Name="FechaExcepcion" ColumnName="FechaExcepcion" />
+          <ScalarProperty Name="CodigoFuncionario" ColumnName="CodigoFuncionario" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="AutorizadoPor" ColumnName="AutorizadoPor" />
+          <ScalarProperty Name="FechaAutorizacion" ColumnName="FechaAutorizacion" />
+          <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+          <ScalarProperty Name="MotivoID" ColumnName="MotivoID" />
+          <ScalarProperty Name="ReponeTiempo" ColumnName="ReponeTiempo" />
+          <ScalarProperty Name="FechaReposicion" ColumnName="FechaReposicion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Funcionario">
+      <EntityTypeMapping TypeName="CUCMarcaModel.Funcionario">
+        <MappingFragment StoreEntitySet="Funcionario">
+          <ScalarProperty Name="FuncionarioID" ColumnName="FuncionarioID" />
+          <ScalarProperty Name="TipoIdentificacionID" ColumnName="TipoIdentificacionID" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+          <ScalarProperty Name="TipoFuncionarioID" ColumnName="TipoFuncionarioID" />
+          <ScalarProperty Name="Correo" ColumnName="Correo" />
+          <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
+          <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FuncionarioArea">
+      <EntityTypeMapping TypeName="CUCMarcaModel.FuncionarioArea">
+        <MappingFragment StoreEntitySet="FuncionarioArea">
+          <ScalarProperty Name="CodigoFuncionario" ColumnName="CodigoFuncionario" />
+          <ScalarProperty Name="FuncionarioID" ColumnName="FuncionarioID" />
+          <ScalarProperty Name="AreaID" ColumnName="AreaID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Horario">
+      <EntityTypeMapping TypeName="CUCMarcaModel.Horario">
+        <MappingFragment StoreEntitySet="Horario">
+          <ScalarProperty Name="HorarioId" ColumnName="HorarioId" />
+          <ScalarProperty Name="Cuatrimestre" ColumnName="Cuatrimestre" />
+          <ScalarProperty Name="Anio" ColumnName="Anio" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="CodigoFuncionario" ColumnName="CodigoFuncionario" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HorarioDetalle">
+      <EntityTypeMapping TypeName="CUCMarcaModel.HorarioDetalle">
+        <MappingFragment StoreEntitySet="HorarioDetalle">
+          <ScalarProperty Name="HorarioID" ColumnName="HorarioID" />
+          <ScalarProperty Name="Dia" ColumnName="Dia" />
+          <ScalarProperty Name="HoraIngreso" ColumnName="HoraIngreso" />
+          <ScalarProperty Name="MinutoIngreso" ColumnName="MinutoIngreso" />
+          <ScalarProperty Name="HoraSalida" ColumnName="HoraSalida" />
+          <ScalarProperty Name="MinutoSalida" ColumnName="MinutoSalida" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Inconsistencia">
+      <EntityTypeMapping TypeName="CUCMarcaModel.Inconsistencia">
+        <MappingFragment StoreEntitySet="Inconsistencia">
+          <ScalarProperty Name="InconsistenciaID" ColumnName="InconsistenciaID" />
+          <ScalarProperty Name="HorarioID" ColumnName="HorarioID" />
+          <ScalarProperty Name="CodigoFuncionario" ColumnName="CodigoFuncionario" />
+          <ScalarProperty Name="FechaInconsistencia" ColumnName="FechaInconsistencia" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+          <ScalarProperty Name="Notificar" ColumnName="Notificar" />
+          <ScalarProperty Name="TipoInconsistenciaID" ColumnName="TipoInconsistenciaID" />
+          <ScalarProperty Name="RegistradoPor" ColumnName="RegistradoPor" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Justificacion">
+      <EntityTypeMapping TypeName="CUCMarcaModel.Justificacion">
+        <MappingFragment StoreEntitySet="Justificacion">
+          <ScalarProperty Name="JustificacionID" ColumnName="JustificacionID" />
+          <ScalarProperty Name="InconsistenciaID" ColumnName="InconsistenciaID" />
+          <ScalarProperty Name="CodigoFuncionario" ColumnName="CodigoFuncionario" />
+          <ScalarProperty Name="ReponeTiempo" ColumnName="ReponeTiempo" />
+          <ScalarProperty Name="FechaReposicion" ColumnName="FechaReposicion" />
+          <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+          <ScalarProperty Name="FechaJustificacion" ColumnName="FechaJustificacion" />
+          <ScalarProperty Name="MotivoID" ColumnName="MotivoID" />
+          <ScalarProperty Name="AutorizadoPor" ColumnName="AutorizadoPor" />
+          <ScalarProperty Name="FechaAutorizacion" ColumnName="FechaAutorizacion" />
+          <ScalarProperty Name="Estado" ColumnName="Estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Motivo">
+      <EntityTypeMapping TypeName="CUCMarcaModel.Motivo">
+        <MappingFragment StoreEntitySet="Motivo">
+          <ScalarProperty Name="MotivoID" ColumnName="MotivoID" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="CUCMarcaModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TipoArea">
+      <EntityTypeMapping TypeName="CUCMarcaModel.TipoArea">
+        <MappingFragment StoreEntitySet="TipoArea">
+          <ScalarProperty Name="TipoAreaID" ColumnName="TipoAreaID" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TipoFuncionario">
+      <EntityTypeMapping TypeName="CUCMarcaModel.TipoFuncionario">
+        <MappingFragment StoreEntitySet="TipoFuncionario">
+          <ScalarProperty Name="TipoFuncionarioID" ColumnName="TipoFuncionarioID" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TipoIdentificacion">
+      <EntityTypeMapping TypeName="CUCMarcaModel.TipoIdentificacion">
+        <MappingFragment StoreEntitySet="TipoIdentificacion">
+          <ScalarProperty Name="TipoIdentificacionID" ColumnName="TipoIdentificacionID" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TipoInconsistencia">
+      <EntityTypeMapping TypeName="CUCMarcaModel.TipoInconsistencia">
+        <MappingFragment StoreEntitySet="TipoInconsistencia">
+          <ScalarProperty Name="TipoInconsistenciaID" ColumnName="TipoInconsistenciaID" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="AspNetUserRoles" TypeName="CUCMarcaModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+      <EndProperty Name="AspNetRoles">
+        <ScalarProperty Name="Id" ColumnName="RoleId" />
+      </EndProperty>
+      <EndProperty Name="AspNetUsers">
+        <ScalarProperty Name="Id" ColumnName="UserId" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

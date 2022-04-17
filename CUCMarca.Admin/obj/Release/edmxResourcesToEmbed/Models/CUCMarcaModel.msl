@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CUCMarcaModelStoreContainer" CdmEntityContainer="CUCMarcaEntities">
+    <EntitySetMapping Name="Area">
+      <EntityTypeMapping TypeName="CUCMarcaModel.Area">
+        <MappingFragment StoreEntitySet="Area">
+          <ScalarProperty Name="AreaID" ColumnName="AreaID" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="TipoArea" ColumnName="TipoArea" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Asistencia">
+      <EntityTypeMapping TypeName="CUCMarcaModel.Asistencia">
+        <MappingFragment StoreEntitySet="Asistencia">
+          <ScalarProperty Name="AsistenciaID" ColumnName="AsistenciaID" />
+          <ScalarProperty Name="FuncionarioID" ColumnName="FuncionarioID" />
+          <ScalarProperty Name="FechaAsistencia" ColumnName="FechaAsistencia" />
+          <ScalarProperty Name="TipoMarca" ColumnName="TipoMarca" />
+          <ScalarProperty Name="Actividad" ColumnName="Actividad" />
+          <ScalarProperty Name="Comentarios" ColumnName="Comentarios" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Funcionario">
+      <EntityTypeMapping TypeName="CUCMarcaModel.Funcionario">
+        <MappingFragment StoreEntitySet="Funcionario">
+          <ScalarProperty Name="FuncionarioID" ColumnName="FuncionarioID" />
+          <ScalarProperty Name="TipoIdentificacionID" ColumnName="TipoIdentificacionID" />
+          <ScalarProperty Name="Identificacion" ColumnName="Identificacion" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+          <ScalarProperty Name="TipoFuncionarioID" ColumnName="TipoFuncionarioID" />
+          <ScalarProperty Name="AreaID" ColumnName="AreaID" />
+          <ScalarProperty Name="Correo" ColumnName="Correo" />
+          <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TipoFuncionario">
+      <EntityTypeMapping TypeName="CUCMarcaModel.TipoFuncionario">
+        <MappingFragment StoreEntitySet="TipoFuncionario">
+          <ScalarProperty Name="TipoFuncionarioID" ColumnName="TipoFuncionarioID" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TipoIdentificacion">
+      <EntityTypeMapping TypeName="CUCMarcaModel.TipoIdentificacion">
+        <MappingFragment StoreEntitySet="TipoIdentificacion">
+          <ScalarProperty Name="TipoIdentificacionID" ColumnName="TipoIdentificacionID" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

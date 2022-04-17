@@ -1,0 +1,661 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CUCMarcaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="C__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Area">
+    <Key>
+      <PropertyRef Name="AreaID" />
+    </Key>
+    <Property Name="AreaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TipoAreaID" Type="Int32" Nullable="false" />
+    <Property Name="Jefe" Type="Int32" />
+    <NavigationProperty Name="Funcionario" Relationship="Self.FK_Area_Funcionario" FromRole="Area" ToRole="Funcionario" />
+    <NavigationProperty Name="TipoArea" Relationship="Self.FK_Area_TipoArea" FromRole="Area" ToRole="TipoArea" />
+    <NavigationProperty Name="FuncionarioArea" Relationship="Self.FK_FuncionarioArea_Area" FromRole="Area" ToRole="FuncionarioArea" />
+  </EntityType>
+  <EntityType Name="Asistencia">
+    <Key>
+      <PropertyRef Name="AsistenciaID" />
+    </Key>
+    <Property Name="AsistenciaID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CodigoFuncionario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FechaAsistencia" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="TipoMarca" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="Actividad" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Comentarios" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DireccionIP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Latitud" Type="Decimal" Precision="18" Scale="15" />
+    <Property Name="Longitud" Type="Decimal" Precision="18" Scale="15" />
+    <NavigationProperty Name="FuncionarioArea" Relationship="Self.FK_Asistencia_FuncionarioArea" FromRole="Asistencia" ToRole="FuncionarioArea" />
+  </EntityType>
+  <EntityType Name="AspNetRoles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaims">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogins">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+    <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+    <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+    <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+  </EntityType>
+  <EntityType Name="Bitacora">
+    <Key>
+      <PropertyRef Name="Identificador" />
+    </Key>
+    <Property Name="Identificador" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Accion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Excepcion">
+    <Key>
+      <PropertyRef Name="ExcepcionID" />
+    </Key>
+    <Property Name="ExcepcionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FechaExcepcion" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="CodigoFuncionario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Estado" Type="Int32" Nullable="false" />
+    <Property Name="AutorizadoPor" Type="Int32" Nullable="false" />
+    <Property Name="FechaAutorizacion" Type="DateTime" Precision="3" Nullable="false" />
+    <Property Name="Observaciones" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="MotivoID" Type="Int32" Nullable="false" />
+    <Property Name="ReponeTiempo" Type="Boolean" Nullable="false" />
+    <Property Name="FechaReposicion" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="FuncionarioArea" Relationship="Self.FK_Excepcion_FuncionarioArea" FromRole="Excepcion" ToRole="FuncionarioArea" />
+    <NavigationProperty Name="Motivo" Relationship="Self.FK_Excepcion_Motivo" FromRole="Excepcion" ToRole="Motivo" />
+    <NavigationProperty Name="Funcionario" Relationship="CUCMarcaModel.FK_Excepcion_Funcionario" FromRole="Excepcion" ToRole="Funcionario" />
+  </EntityType>
+  <EntityType Name="Funcionario">
+    <Key>
+      <PropertyRef Name="FuncionarioID" />
+    </Key>
+    <Property Name="FuncionarioID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TipoIdentificacionID" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TipoFuncionarioID" Type="Int32" Nullable="false" />
+    <Property Name="Correo" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Contrasena" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Identificacion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Estado" Type="Byte" />
+    <NavigationProperty Name="Area" Relationship="Self.FK_Area_Funcionario" FromRole="Funcionario" ToRole="Area" />
+    <NavigationProperty Name="TipoFuncionario" Relationship="Self.FK_Funcionario_TipoFuncionario" FromRole="Funcionario" ToRole="TipoFuncionario" />
+    <NavigationProperty Name="TipoIdentificacion" Relationship="Self.FK_Funcionario_TipoIdentificacion" FromRole="Funcionario" ToRole="TipoIdentificacion" />
+    <NavigationProperty Name="FuncionarioArea" Relationship="Self.FK_FuncionarioArea_Funcionario" FromRole="Funcionario" ToRole="FuncionarioArea" />
+    <NavigationProperty Name="Excepcion" Relationship="CUCMarcaModel.FK_Excepcion_Funcionario" FromRole="Funcionario" ToRole="Excepcion" />
+  </EntityType>
+  <EntityType Name="FuncionarioArea">
+    <Key>
+      <PropertyRef Name="CodigoFuncionario" />
+    </Key>
+    <Property Name="CodigoFuncionario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FuncionarioID" Type="Int32" Nullable="false" />
+    <Property Name="AreaID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Area" Relationship="Self.FK_FuncionarioArea_Area" FromRole="FuncionarioArea" ToRole="Area" />
+    <NavigationProperty Name="Asistencia" Relationship="Self.FK_Asistencia_FuncionarioArea" FromRole="FuncionarioArea" ToRole="Asistencia" />
+    <NavigationProperty Name="Excepcion" Relationship="Self.FK_Excepcion_FuncionarioArea" FromRole="FuncionarioArea" ToRole="Excepcion" />
+    <NavigationProperty Name="Funcionario" Relationship="Self.FK_FuncionarioArea_Funcionario" FromRole="FuncionarioArea" ToRole="Funcionario" />
+    <NavigationProperty Name="Horario" Relationship="Self.FK_Horario_FuncionarioArea" FromRole="FuncionarioArea" ToRole="Horario" />
+    <NavigationProperty Name="Inconsistencia" Relationship="Self.FK_Inconsistencia_FuncionarioArea" FromRole="FuncionarioArea" ToRole="Inconsistencia" />
+    <NavigationProperty Name="Justificacion" Relationship="Self.FK_Justificacion_FuncionarioArea" FromRole="FuncionarioArea" ToRole="Justificacion" />
+  </EntityType>
+  <EntityType Name="Horario">
+    <Key>
+      <PropertyRef Name="HorarioId" />
+    </Key>
+    <Property Name="HorarioId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Cuatrimestre" Type="Byte" Nullable="false" />
+    <Property Name="Anio" Type="Int32" Nullable="false" />
+    <Property Name="Estado" Type="Byte" Nullable="false" />
+    <Property Name="CodigoFuncionario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="FuncionarioArea" Relationship="Self.FK_Horario_FuncionarioArea" FromRole="Horario" ToRole="FuncionarioArea" />
+    <NavigationProperty Name="HorarioDetalle" Relationship="Self.FK_HorarioDetalle_Horario" FromRole="Horario" ToRole="HorarioDetalle" />
+    <NavigationProperty Name="Inconsistencia" Relationship="Self.FK_Inconsistencia_Horario" FromRole="Horario" ToRole="Inconsistencia" />
+  </EntityType>
+  <EntityType Name="HorarioDetalle">
+    <Key>
+      <PropertyRef Name="HorarioID" />
+      <PropertyRef Name="Dia" />
+    </Key>
+    <Property Name="HorarioID" Type="Int32" Nullable="false" />
+    <Property Name="Dia" Type="Int32" Nullable="false" />
+    <Property Name="HoraIngreso" Type="Byte" Nullable="false" />
+    <Property Name="MinutoIngreso" Type="Byte" Nullable="false" />
+    <Property Name="HoraSalida" Type="Byte" Nullable="false" />
+    <Property Name="MinutoSalida" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="Horario" Relationship="Self.FK_HorarioDetalle_Horario" FromRole="HorarioDetalle" ToRole="Horario" />
+  </EntityType>
+  <EntityType Name="Inconsistencia">
+    <Key>
+      <PropertyRef Name="InconsistenciaID" />
+    </Key>
+    <Property Name="InconsistenciaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HorarioID" Type="Int32" Nullable="false" />
+    <Property Name="CodigoFuncionario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FechaInconsistencia" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Estado" Type="Byte" Nullable="false" />
+    <Property Name="Notificar" Type="Boolean" Nullable="false" />
+    <Property Name="TipoInconsistenciaID" Type="Int32" Nullable="false" />
+    <Property Name="RegistradoPor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="FuncionarioArea" Relationship="Self.FK_Inconsistencia_FuncionarioArea" FromRole="Inconsistencia" ToRole="FuncionarioArea" />
+    <NavigationProperty Name="Horario" Relationship="Self.FK_Inconsistencia_Horario" FromRole="Inconsistencia" ToRole="Horario" />
+    <NavigationProperty Name="TipoInconsistencia" Relationship="Self.FK_Inconsistencia_TipoInconsistencia" FromRole="Inconsistencia" ToRole="TipoInconsistencia" />
+    <NavigationProperty Name="Justificacion" Relationship="Self.FK_Justificacion_Inconsistencia" FromRole="Inconsistencia" ToRole="Justificacion" />
+  </EntityType>
+  <EntityType Name="Justificacion">
+    <Key>
+      <PropertyRef Name="JustificacionID" />
+    </Key>
+    <Property Name="JustificacionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="InconsistenciaID" Type="Int32" Nullable="false" />
+    <Property Name="CodigoFuncionario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ReponeTiempo" Type="Boolean" Nullable="false" />
+    <Property Name="FechaReposicion" Type="DateTime" Precision="0" />
+    <Property Name="Observaciones" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FechaJustificacion" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="MotivoID" Type="Int32" Nullable="false" />
+    <Property Name="AutorizadoPor" Type="Int32" />
+    <Property Name="FechaAutorizacion" Type="DateTime" Precision="3" />
+    <Property Name="Estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="FuncionarioArea" Relationship="Self.FK_Justificacion_FuncionarioArea" FromRole="Justificacion" ToRole="FuncionarioArea" />
+    <NavigationProperty Name="Inconsistencia" Relationship="Self.FK_Justificacion_Inconsistencia" FromRole="Justificacion" ToRole="Inconsistencia" />
+    <NavigationProperty Name="Motivo" Relationship="Self.FK_Justificacion_Motivo" FromRole="Justificacion" ToRole="Motivo" />
+  </EntityType>
+  <EntityType Name="Motivo">
+    <Key>
+      <PropertyRef Name="MotivoID" />
+    </Key>
+    <Property Name="MotivoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Excepcion" Relationship="Self.FK_Excepcion_Motivo" FromRole="Motivo" ToRole="Excepcion" />
+    <NavigationProperty Name="Justificacion" Relationship="Self.FK_Justificacion_Motivo" FromRole="Motivo" ToRole="Justificacion" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TipoArea">
+    <Key>
+      <PropertyRef Name="TipoAreaID" />
+    </Key>
+    <Property Name="TipoAreaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Area" Relationship="Self.FK_Area_TipoArea" FromRole="TipoArea" ToRole="Area" />
+  </EntityType>
+  <EntityType Name="TipoFuncionario">
+    <Key>
+      <PropertyRef Name="TipoFuncionarioID" />
+    </Key>
+    <Property Name="TipoFuncionarioID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Funcionario" Relationship="Self.FK_Funcionario_TipoFuncionario" FromRole="TipoFuncionario" ToRole="Funcionario" />
+  </EntityType>
+  <EntityType Name="TipoIdentificacion">
+    <Key>
+      <PropertyRef Name="TipoIdentificacionID" />
+    </Key>
+    <Property Name="TipoIdentificacionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Funcionario" Relationship="Self.FK_Funcionario_TipoIdentificacion" FromRole="TipoIdentificacion" ToRole="Funcionario" />
+  </EntityType>
+  <EntityType Name="TipoInconsistencia">
+    <Key>
+      <PropertyRef Name="TipoInconsistenciaID" />
+    </Key>
+    <Property Name="TipoInconsistenciaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Inconsistencia" Relationship="Self.FK_Inconsistencia_TipoInconsistencia" FromRole="TipoInconsistencia" ToRole="Inconsistencia" />
+  </EntityType>
+  <Association Name="FK_Area_Funcionario">
+    <End Role="Funcionario" Type="Self.Funcionario" Multiplicity="0..1" />
+    <End Role="Area" Type="Self.Area" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Funcionario">
+        <PropertyRef Name="FuncionarioID" />
+      </Principal>
+      <Dependent Role="Area">
+        <PropertyRef Name="Jefe" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Area_TipoArea">
+    <End Role="TipoArea" Type="Self.TipoArea" Multiplicity="1" />
+    <End Role="Area" Type="Self.Area" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoArea">
+        <PropertyRef Name="TipoAreaID" />
+      </Principal>
+      <Dependent Role="Area">
+        <PropertyRef Name="TipoAreaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FuncionarioArea_Area">
+    <End Role="Area" Type="Self.Area" Multiplicity="1" />
+    <End Role="FuncionarioArea" Type="Self.FuncionarioArea" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Area">
+        <PropertyRef Name="AreaID" />
+      </Principal>
+      <Dependent Role="FuncionarioArea">
+        <PropertyRef Name="AreaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Asistencia_FuncionarioArea">
+    <End Role="FuncionarioArea" Type="Self.FuncionarioArea" Multiplicity="1" />
+    <End Role="Asistencia" Type="Self.Asistencia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FuncionarioArea">
+        <PropertyRef Name="CodigoFuncionario" />
+      </Principal>
+      <Dependent Role="Asistencia">
+        <PropertyRef Name="CodigoFuncionario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Excepcion_FuncionarioArea">
+    <End Role="FuncionarioArea" Type="Self.FuncionarioArea" Multiplicity="1" />
+    <End Role="Excepcion" Type="Self.Excepcion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FuncionarioArea">
+        <PropertyRef Name="CodigoFuncionario" />
+      </Principal>
+      <Dependent Role="Excepcion">
+        <PropertyRef Name="CodigoFuncionario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Excepcion_Motivo">
+    <End Role="Motivo" Type="Self.Motivo" Multiplicity="1" />
+    <End Role="Excepcion" Type="Self.Excepcion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Motivo">
+        <PropertyRef Name="MotivoID" />
+      </Principal>
+      <Dependent Role="Excepcion">
+        <PropertyRef Name="MotivoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Funcionario_TipoFuncionario">
+    <End Role="TipoFuncionario" Type="Self.TipoFuncionario" Multiplicity="1" />
+    <End Role="Funcionario" Type="Self.Funcionario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoFuncionario">
+        <PropertyRef Name="TipoFuncionarioID" />
+      </Principal>
+      <Dependent Role="Funcionario">
+        <PropertyRef Name="TipoFuncionarioID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Funcionario_TipoIdentificacion">
+    <End Role="TipoIdentificacion" Type="Self.TipoIdentificacion" Multiplicity="1" />
+    <End Role="Funcionario" Type="Self.Funcionario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoIdentificacion">
+        <PropertyRef Name="TipoIdentificacionID" />
+      </Principal>
+      <Dependent Role="Funcionario">
+        <PropertyRef Name="TipoIdentificacionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FuncionarioArea_Funcionario">
+    <End Role="Funcionario" Type="Self.Funcionario" Multiplicity="1" />
+    <End Role="FuncionarioArea" Type="Self.FuncionarioArea" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Funcionario">
+        <PropertyRef Name="FuncionarioID" />
+      </Principal>
+      <Dependent Role="FuncionarioArea">
+        <PropertyRef Name="FuncionarioID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Horario_FuncionarioArea">
+    <End Role="FuncionarioArea" Type="Self.FuncionarioArea" Multiplicity="1" />
+    <End Role="Horario" Type="Self.Horario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FuncionarioArea">
+        <PropertyRef Name="CodigoFuncionario" />
+      </Principal>
+      <Dependent Role="Horario">
+        <PropertyRef Name="CodigoFuncionario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Inconsistencia_FuncionarioArea">
+    <End Role="FuncionarioArea" Type="Self.FuncionarioArea" Multiplicity="1" />
+    <End Role="Inconsistencia" Type="Self.Inconsistencia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FuncionarioArea">
+        <PropertyRef Name="CodigoFuncionario" />
+      </Principal>
+      <Dependent Role="Inconsistencia">
+        <PropertyRef Name="CodigoFuncionario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Justificacion_FuncionarioArea">
+    <End Role="FuncionarioArea" Type="Self.FuncionarioArea" Multiplicity="1" />
+    <End Role="Justificacion" Type="Self.Justificacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FuncionarioArea">
+        <PropertyRef Name="CodigoFuncionario" />
+      </Principal>
+      <Dependent Role="Justificacion">
+        <PropertyRef Name="CodigoFuncionario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HorarioDetalle_Horario">
+    <End Role="Horario" Type="Self.Horario" Multiplicity="1" />
+    <End Role="HorarioDetalle" Type="Self.HorarioDetalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Horario">
+        <PropertyRef Name="HorarioId" />
+      </Principal>
+      <Dependent Role="HorarioDetalle">
+        <PropertyRef Name="HorarioID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Inconsistencia_Horario">
+    <End Role="Horario" Type="Self.Horario" Multiplicity="1" />
+    <End Role="Inconsistencia" Type="Self.Inconsistencia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Horario">
+        <PropertyRef Name="HorarioId" />
+      </Principal>
+      <Dependent Role="Inconsistencia">
+        <PropertyRef Name="HorarioID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Inconsistencia_TipoInconsistencia">
+    <End Role="TipoInconsistencia" Type="Self.TipoInconsistencia" Multiplicity="1" />
+    <End Role="Inconsistencia" Type="Self.Inconsistencia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoInconsistencia">
+        <PropertyRef Name="TipoInconsistenciaID" />
+      </Principal>
+      <Dependent Role="Inconsistencia">
+        <PropertyRef Name="TipoInconsistenciaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Justificacion_Inconsistencia">
+    <End Role="Inconsistencia" Type="Self.Inconsistencia" Multiplicity="1" />
+    <End Role="Justificacion" Type="Self.Justificacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Inconsistencia">
+        <PropertyRef Name="InconsistenciaID" />
+      </Principal>
+      <Dependent Role="Justificacion">
+        <PropertyRef Name="InconsistenciaID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Justificacion_Motivo">
+    <End Role="Motivo" Type="Self.Motivo" Multiplicity="1" />
+    <End Role="Justificacion" Type="Self.Justificacion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Motivo">
+        <PropertyRef Name="MotivoID" />
+      </Principal>
+      <Dependent Role="Justificacion">
+        <PropertyRef Name="MotivoID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AspNetUserRoles">
+    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="*" />
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="CUCMarcaEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+    <EntitySet Name="Area" EntityType="Self.Area" />
+    <EntitySet Name="Asistencia" EntityType="Self.Asistencia" />
+    <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" />
+    <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" />
+    <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" />
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" />
+    <EntitySet Name="Bitacora" EntityType="Self.Bitacora" />
+    <EntitySet Name="Excepcion" EntityType="Self.Excepcion" />
+    <EntitySet Name="Funcionario" EntityType="Self.Funcionario" />
+    <EntitySet Name="FuncionarioArea" EntityType="Self.FuncionarioArea" />
+    <EntitySet Name="Horario" EntityType="Self.Horario" />
+    <EntitySet Name="HorarioDetalle" EntityType="Self.HorarioDetalle" />
+    <EntitySet Name="Inconsistencia" EntityType="Self.Inconsistencia" />
+    <EntitySet Name="Justificacion" EntityType="Self.Justificacion" />
+    <EntitySet Name="Motivo" EntityType="Self.Motivo" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="TipoArea" EntityType="Self.TipoArea" />
+    <EntitySet Name="TipoFuncionario" EntityType="Self.TipoFuncionario" />
+    <EntitySet Name="TipoIdentificacion" EntityType="Self.TipoIdentificacion" />
+    <EntitySet Name="TipoInconsistencia" EntityType="Self.TipoInconsistencia" />
+    <AssociationSet Name="FK_Area_Funcionario" Association="Self.FK_Area_Funcionario">
+      <End Role="Funcionario" EntitySet="Funcionario" />
+      <End Role="Area" EntitySet="Area" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Area_TipoArea" Association="Self.FK_Area_TipoArea">
+      <End Role="TipoArea" EntitySet="TipoArea" />
+      <End Role="Area" EntitySet="Area" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FuncionarioArea_Area" Association="Self.FK_FuncionarioArea_Area">
+      <End Role="Area" EntitySet="Area" />
+      <End Role="FuncionarioArea" EntitySet="FuncionarioArea" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Asistencia_FuncionarioArea" Association="Self.FK_Asistencia_FuncionarioArea">
+      <End Role="FuncionarioArea" EntitySet="FuncionarioArea" />
+      <End Role="Asistencia" EntitySet="Asistencia" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Excepcion_FuncionarioArea" Association="Self.FK_Excepcion_FuncionarioArea">
+      <End Role="FuncionarioArea" EntitySet="FuncionarioArea" />
+      <End Role="Excepcion" EntitySet="Excepcion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Excepcion_Motivo" Association="Self.FK_Excepcion_Motivo">
+      <End Role="Motivo" EntitySet="Motivo" />
+      <End Role="Excepcion" EntitySet="Excepcion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Funcionario_TipoFuncionario" Association="Self.FK_Funcionario_TipoFuncionario">
+      <End Role="TipoFuncionario" EntitySet="TipoFuncionario" />
+      <End Role="Funcionario" EntitySet="Funcionario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Funcionario_TipoIdentificacion" Association="Self.FK_Funcionario_TipoIdentificacion">
+      <End Role="TipoIdentificacion" EntitySet="TipoIdentificacion" />
+      <End Role="Funcionario" EntitySet="Funcionario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FuncionarioArea_Funcionario" Association="Self.FK_FuncionarioArea_Funcionario">
+      <End Role="Funcionario" EntitySet="Funcionario" />
+      <End Role="FuncionarioArea" EntitySet="FuncionarioArea" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Horario_FuncionarioArea" Association="Self.FK_Horario_FuncionarioArea">
+      <End Role="FuncionarioArea" EntitySet="FuncionarioArea" />
+      <End Role="Horario" EntitySet="Horario" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Inconsistencia_FuncionarioArea" Association="Self.FK_Inconsistencia_FuncionarioArea">
+      <End Role="FuncionarioArea" EntitySet="FuncionarioArea" />
+      <End Role="Inconsistencia" EntitySet="Inconsistencia" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Justificacion_FuncionarioArea" Association="Self.FK_Justificacion_FuncionarioArea">
+      <End Role="FuncionarioArea" EntitySet="FuncionarioArea" />
+      <End Role="Justificacion" EntitySet="Justificacion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HorarioDetalle_Horario" Association="Self.FK_HorarioDetalle_Horario">
+      <End Role="Horario" EntitySet="Horario" />
+      <End Role="HorarioDetalle" EntitySet="HorarioDetalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Inconsistencia_Horario" Association="Self.FK_Inconsistencia_Horario">
+      <End Role="Horario" EntitySet="Horario" />
+      <End Role="Inconsistencia" EntitySet="Inconsistencia" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Inconsistencia_TipoInconsistencia" Association="Self.FK_Inconsistencia_TipoInconsistencia">
+      <End Role="TipoInconsistencia" EntitySet="TipoInconsistencia" />
+      <End Role="Inconsistencia" EntitySet="Inconsistencia" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Justificacion_Inconsistencia" Association="Self.FK_Justificacion_Inconsistencia">
+      <End Role="Inconsistencia" EntitySet="Inconsistencia" />
+      <End Role="Justificacion" EntitySet="Justificacion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Justificacion_Motivo" Association="Self.FK_Justificacion_Motivo">
+      <End Role="Motivo" EntitySet="Motivo" />
+      <End Role="Justificacion" EntitySet="Justificacion" />
+    </AssociationSet>
+    <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(CUCMarcaModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(CUCMarcaModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <AssociationSet Name="FK_Excepcion_Funcionario" Association="CUCMarcaModel.FK_Excepcion_Funcionario">
+      <End Role="Funcionario" EntitySet="Funcionario" />
+      <End Role="Excepcion" EntitySet="Excepcion" />
+    </AssociationSet>
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <Association Name="FK_Excepcion_Funcionario">
+    <End Type="CUCMarcaModel.Funcionario" Role="Funcionario" Multiplicity="1" />
+    <End Type="CUCMarcaModel.Excepcion" Role="Excepcion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Funcionario">
+        <PropertyRef Name="FuncionarioID" />
+      </Principal>
+      <Dependent Role="Excepcion">
+        <PropertyRef Name="AutorizadoPor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
