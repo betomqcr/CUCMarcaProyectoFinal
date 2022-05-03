@@ -8,7 +8,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAfvZPMd+2vk202D0i4CYAEAAAAAACAAAAAAAQZgAAAAEAACAAAABDUxmSjcIFoWpdOST7mGrsogGoNpEYpg+LtGCPueaPxgAAAAAOgAAAAAIAACAAAAAnsFaCFdDcjZ8XxjVFFLe4qQl8hNZIZ5IMaYHbZbZAuyAAAAC17qgPv8+CDRpk0wEXyz1BwtZx+oL838YJzDE/kvctkUAAAADrMTq6pEpm25pz2klfxXnFe91S/tPSNjllVFnRpZpJvbw3upNFg2HPhnnzlvkFoF2ni8vtGhy72dQ3pc9QBRA7</EncryptedPassword>
     <_PublishTargetUrl>ftp://tiusr20pl.cuc-carrera-ti.ac.cr/httpdocs\CUCMarcaAdministracion</_PublishTargetUrl>
-    <History>True|2022-04-17T15:46:29.7106356Z;True|2022-04-08T18:02:57.8904886-06:00;True|2022-04-08T15:22:17.7842687-06:00;True|2022-04-08T13:08:07.3548562-06:00;True|2022-04-05T19:25:39.2953522-06:00;True|2022-04-05T19:24:29.2888720-06:00;True|2022-04-05T19:05:39.0581813-06:00;True|2022-03-12T16:44:04.5523574-06:00;True|2022-03-12T16:39:14.5713856-06:00;</History>
+    <History>True|2022-05-02T17:01:52.3069005Z;True|2022-05-02T10:44:43.8292558-06:00;True|2022-04-17T09:46:29.7106356-06:00;True|2022-04-08T18:02:57.8904886-06:00;True|2022-04-08T15:22:17.7842687-06:00;True|2022-04-08T13:08:07.3548562-06:00;True|2022-04-05T19:25:39.2953522-06:00;True|2022-04-05T19:24:29.2888720-06:00;True|2022-04-05T19:05:39.0581813-06:00;True|2022-03-12T16:44:04.5523574-06:00;True|2022-03-12T16:39:14.5713856-06:00;</History>
   </PropertyGroup>
   <ItemGroup>
     <File Include="About.aspx">
@@ -75,28 +75,28 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>05/16/2019 06:33:30</publishTime>
     </File>
     <File Include="bin/CUCMarca.Administracion.dll">
-      <publishTime>04/17/2022 09:41:29</publishTime>
+      <publishTime>05/02/2022 10:59:47</publishTime>
     </File>
     <File Include="bin/CUCMarca.Administracion.pdb">
-      <publishTime>04/17/2022 09:41:29</publishTime>
+      <publishTime>05/02/2022 10:59:47</publishTime>
     </File>
     <File Include="bin/CUCMarca.BusinessServices.dll">
-      <publishTime>04/17/2022 09:37:58</publishTime>
+      <publishTime>05/02/2022 10:59:42</publishTime>
     </File>
     <File Include="bin/CUCMarca.BusinessServices.dll.config">
       <publishTime>02/07/2022 19:21:34</publishTime>
     </File>
     <File Include="bin/CUCMarca.BusinessServices.pdb">
-      <publishTime>04/17/2022 09:37:58</publishTime>
+      <publishTime>05/02/2022 10:59:42</publishTime>
     </File>
     <File Include="bin/CUCMarca.DataAccess.dll">
-      <publishTime>04/17/2022 09:37:58</publishTime>
+      <publishTime>05/02/2022 10:59:41</publishTime>
     </File>
     <File Include="bin/CUCMarca.DataAccess.dll.config">
-      <publishTime>04/17/2022 09:44:37</publishTime>
+      <publishTime>05/02/2022 10:59:21</publishTime>
     </File>
     <File Include="bin/CUCMarca.DataAccess.pdb">
-      <publishTime>04/17/2022 09:37:58</publishTime>
+      <publishTime>05/02/2022 10:59:41</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>10/23/2017 07:15:18</publishTime>
@@ -996,7 +996,7 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>02/02/2021 21:19:16</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>04/17/2022 09:46:12</publishTime>
+      <publishTime>05/02/2022 11:01:35</publishTime>
     </File>
     <File Include="webfonts/fa-brands-400.eot">
       <publishTime>02/02/2021 21:19:16</publishTime>

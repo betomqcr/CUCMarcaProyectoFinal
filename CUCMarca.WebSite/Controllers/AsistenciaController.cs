@@ -23,8 +23,10 @@ namespace CUCMarca.WebSite.Controllers
             return View(new Asistencia()
             {
                 DireccionIP = "0.0.0.0",
-                Latitud = 0,
-                Longitud = 0
+                Latitud = "",
+                Longitud = "",
+                _Latitud=0,
+                _Longitud=0
             });
         }
 
@@ -42,11 +44,16 @@ namespace CUCMarca.WebSite.Controllers
             ViewBag.Hora = DateTime.Now;
             if (!ModelState.IsValid)
             {
+                //string messages = string.Join("; ", ModelState.Values
+                //                        .SelectMany(x => x.Errors)
+                //                        .Select(x => x.ErrorMessage));
                 ModelState.AddModelError("", "Verifique los datos");
                 return View(asistencia);
             }
             try
             {
+                asistencia._Latitud = asistencia.GetDecimal(asistencia.Latitud);
+                asistencia._Longitud = asistencia.GetDecimal(asistencia.Longitud);
                 CUCMarca.WebSite.Controllers.LoginController login = new LoginController();
                 Models.Login usuario = new Login()
 
@@ -59,7 +66,7 @@ namespace CUCMarca.WebSite.Controllers
                string token= login.validarUsuarioN(usuario).ToString();
                
                 string url = ConfigurationManager.AppSettings["URL_MARCA"];
-                Marca marca = SendMarca2(asistencia, url + "?codigo=" + asistencia.CodigoFuncionario, token);
+                Marca marca = SendMarca(asistencia, url + "?codigo=" + asistencia.CodigoFuncionario, token.Replace("\"", string.Empty));
                 if (marca.CodigoRespuesta == 0)
                 {
                     TempData["Success"] = "Marca realizada exitosamente a las " + marca.FechaMarca + " " + marca.Mensaje;
@@ -87,18 +94,20 @@ namespace CUCMarca.WebSite.Controllers
         {
             string json = asistencia.ToJsonString();
             
+
             //Console.WriteLine(json);
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json;");
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token );
+                //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token );
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
                 var task = Task.Run(async () =>
                 {
                     StringContent content= new StringContent(json);
                     content.Headers.ContentType.CharSet = "";
                     content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-                    return await client.PostAsync(url,content);
+                    return await client.PostAsync(Uri.EscapeUriString(url),content);
                 }); 
                 HttpResponseMessage message = task.Result;
                 if (message.StatusCode == System.Net.HttpStatusCode.NotFound)

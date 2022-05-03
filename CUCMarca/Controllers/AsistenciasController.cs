@@ -114,7 +114,7 @@ namespace CUCMarca.Controllers
         }
 
         // POST: api/Asistencias/Marcar
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         [ResponseType(typeof(Marca))]
         [Route("api/Asistencias/Marcar", Name = "MarcarAsistencia")]
@@ -156,8 +156,8 @@ namespace CUCMarca.Controllers
                     //Actividad = marca.Actividad == null ? string.Empty : marca.Actividad,
                     Actividad = marca.Actividad,
                     Comentarios = marca.Comentarios == null ? string.Empty : marca.Comentarios,
-                    Latitud = marca.Latitud,
-                    Longitud = marca.Longitud,
+                    Latitud = marca._Latitud,
+                    Longitud = marca._Longitud,
                     DireccionIP = HttpContext.Current.Request.UserHostAddress,
                     
                 };
@@ -225,6 +225,9 @@ namespace CUCMarca.Controllers
                     return BadRequest(ModelState);
                 }
 
+                marca._Latitud = marca.GetDecimal(marca.Latitud);
+                marca._Longitud = marca.GetDecimal(marca.Longitud);
+
                 FuncionarioArea f = db.FuncionarioArea.FirstOrDefault<FuncionarioArea>(x => x.Funcionario.Identificacion == marca.CodigoFuncionario && x.AreaID==marca.AreaID);
                 if (f == null)
                 {
@@ -254,8 +257,8 @@ namespace CUCMarca.Controllers
                     //Actividad = marca.Actividad == null ? string.Empty : marca.Actividad,
                     Actividad = marca.Actividad,
                     Comentarios = marca.Comentarios == null ? string.Empty : marca.Comentarios,
-                    Latitud = marca.Latitud,
-                    Longitud = marca.Longitud,
+                    Latitud = marca._Latitud,
+                    Longitud = marca._Longitud,
                     DireccionIP = HttpContext.Current.Request.UserHostAddress,
 
                 };

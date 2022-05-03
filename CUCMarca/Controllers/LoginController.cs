@@ -40,6 +40,7 @@ namespace CUCMarca.Controllers
                 {
                     string t = token.generarToken();
                     var TokenN = TokenGenerator.GenerateTokenJwt(usuario.Identificacion);
+
                     bitacora.accion = "Login";
                     bitacora.descripcion = "Login correcto. Token generado : " + TokenN;
                     bitacora.fecha = DateTime.Now;

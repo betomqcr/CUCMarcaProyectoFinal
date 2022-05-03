@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Newtonsoft.Json;
 using System.Web.Mvc;
+using System.Globalization;
 
 namespace CUCMarca.WebSite.Models
 {
@@ -36,9 +37,38 @@ namespace CUCMarca.WebSite.Models
         public string DireccionIP
         { get; set; }
 
-        public decimal Latitud { get; set; }
+        public string Latitud { get; set; }
 
-        public decimal Longitud { get; set; }
+        public string Longitud { get; set; }
+
+        public decimal _Latitud { get; set; }
+
+        public decimal _Longitud { get; set; }
+
+        // string
+
+        public decimal GetDecimal(string s)
+        {
+            decimal d;
+
+            var formatinfo = new NumberFormatInfo();
+
+            formatinfo.NumberDecimalSeparator = ".";
+
+            if (decimal.TryParse(s, NumberStyles.Float, formatinfo, out d))
+            {
+                return d;
+            }
+
+            formatinfo.NumberDecimalSeparator = ",";
+
+            if (decimal.TryParse(s, NumberStyles.Float, formatinfo, out d))
+            {
+                return d;
+            }
+            throw new SystemException(string.Format("strange number format '{0}'", s));
+        }
+    
 
         public IEnumerable<SelectListItem> Values
         {

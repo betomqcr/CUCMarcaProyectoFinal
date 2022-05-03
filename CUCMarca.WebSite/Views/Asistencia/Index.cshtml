@@ -57,8 +57,7 @@
         -->
     @if (TempData["Success"] != null)
     {
-        <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
-    }
+<p class="alert alert-success" id="successMessage">@TempData["Success"]</p>}
     <p class="alert alert-success" id="successMessage">
         Hora del servidor @ViewBag.Hora
     </p>
@@ -81,37 +80,37 @@
                                     </div>
                                     @using (Html.BeginForm())
                                     {
-                                        @Html.ValidationSummary(true, "Error durante el proceso de ingreso", new { @class = "text-danger" })
+                        @Html.ValidationSummary(true, "Error durante el proceso de ingreso", new { @class = "text-danger" })
                                         @Html.AntiForgeryToken()
-                                        <div class="form-group">
-                                            @Html.EditorFor(x => x.CodigoFuncionario, new { htmlAttributes = new { @class = "form-control form-control-user", @maxlenght = 20, @placeholder = "Digite su usuario" } })
-                                            @Html.ValidationMessageFor(x => x.CodigoFuncionario, "", htmlAttributes: new { @class = "text-danger" })
-                                        </div>
-                                        <div class="form-group">
-                                            @Html.PasswordFor(x => x.Contrasena, new { @class = "form-control form-control-user", @maxlenght = 50, @placeholder = "Contraseña..." })
-                                            @Html.ValidationMessageFor(x => x.Contrasena, "", htmlAttributes: new { @class = "text-danger" })
-                                        </div>
-                                        <div class="form-group">
-                                            @Html.TextAreaFor(x => x.Actividad, new { @class = "form-control form-control-user", @maxlenght = 500, @placeholder = "Actividad..." })
-                                            @Html.ValidationMessageFor(x => x.Actividad, "", htmlAttributes: new { @class = "text-danger" })
-                                        </div>
-                                        <div class="form-group">
+                                                        <div class="form-group">
+                                                            @Html.EditorFor(x => x.CodigoFuncionario, new { htmlAttributes = new { @class = "form-control form-control-user", @maxlenght = 20, @placeholder = "Digite su usuario" } })
+                                                            @Html.ValidationMessageFor(x => x.CodigoFuncionario, "", htmlAttributes: new { @class = "text-danger" })
+                                                        </div>
+                                                                        <div class="form-group">
+                                                                            @Html.PasswordFor(x => x.Contrasena, new { @class = "form-control form-control-user", @maxlenght = 50, @placeholder = "Contraseña..." })
+                                                                            @Html.ValidationMessageFor(x => x.Contrasena, "", htmlAttributes: new { @class = "text-danger" })
+                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            @Html.TextAreaFor(x => x.Actividad, new { @class = "form-control form-control-user", @maxlenght = 500, @placeholder = "Actividad..." })
+                                                                                            @Html.ValidationMessageFor(x => x.Actividad, "", htmlAttributes: new { @class = "text-danger" })
+                                                                                        </div>
+                                                                                                        <div class="form-group">
 
-                                            @Html.DropDownListFor(model => model.idFuncionario, Model.Lista, new { @class = "form-control form-control-user" })
+                                                                                                            @Html.DropDownListFor(model => model.idFuncionario, Model.Lista, new { @class = "form-control form-control-user" })
 
-                                        </div>
-                                        <div class="form-group">
-                                            @Html.TextAreaFor(x => x.Comentarios, new { @class = "form-control form-control-user", @maxlenght = 8000, @placeholder = "Ingrese los comentarios" })
-                                            @Html.ValidationMessageFor(x => x.Comentarios, "", htmlAttributes: new { @class = "text-danger" })
-                                        </div>
-                                        <div class="form-group">
-                                            @Html.DropDownListFor(x => x.TipoMarca, Model.Values, new { @class = "form-control form-control-user" })
-                                        </div>
-                                        <input type="submit" value="Guardar" class="btn btn-primary btn-user btn-block" />
-                                        @Html.HiddenFor(m => m.Latitud, new { id = "hdLatitud" })
-                                        @Html.HiddenFor(m => m.Longitud, new { id = "hdLongitud" })
-                                        @Html.HiddenFor(m => m.DireccionIP, new { id = "hdIP" });
-                                    }
+                                                                                                        </div>
+                                                                                                                        <div class="form-group">
+                                                                                                                            @Html.TextAreaFor(x => x.Comentarios, new { @class = "form-control form-control-user", @maxlenght = 8000, @placeholder = "Ingrese los comentarios" })
+                                                                                                                            @Html.ValidationMessageFor(x => x.Comentarios, "", htmlAttributes: new { @class = "text-danger" })
+                                                                                                                        </div>
+                                                                                                                                        <div class="form-group">
+                                                                                                                                            @Html.DropDownListFor(x => x.TipoMarca, Model.Values, new { @class = "form-control form-control-user" })
+                                                                                                                                        </div>
+                                                                                                                                                        <input type="submit" value="Guardar" class="btn btn-primary btn-user btn-block" />
+                                                                                                                                                                        @Html.HiddenFor(m => m.Latitud, new { id = "hdLatitud" })
+                                                                                                                                                                                        @Html.HiddenFor(m => m.Longitud, new { id = "hdLongitud" })
+                                                                                                                                                                                                        @Html.HiddenFor(m => m.DireccionIP, new { id = "hdIP" });
+                                                                                                                                                                                                    }
                                     <hr>
                                     <div class="text-center">
                                         <a class="small" href="@Url.Action("Olvido", "Login")">¿Olvidó su contraseña?</a>
@@ -182,8 +181,11 @@
             $("#hdIP").val("0.0.0.0");
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function (position) {
+                    //02/05/2022 gabriel y alberto error de datos con decimales y su formato
                     $("#hdLatitud").val(position.coords.latitude.toString().replace(".", ","));
                     $("#hdLongitud").val(position.coords.longitude.toString().replace(".", ","));
+                    //$("#hdLatitud").val(position.coords.latitude.toString());
+                    //$("#hdLongitud").val(position.coords.longitude.toString());
                 });
             }
 
@@ -194,8 +196,8 @@
 
 
     <!---Script for dropwdown CodigosFuncionario-->
-   <script src="~/Scripts/src/methods/ListarCodigos.js"></script>
-   <script>
+    <script src="~/Scripts/src/methods/ListarCodigos.js"></script>
+    <script>
         $(document).ready(function () {
             cargarcombo("@ViewBag.url");
             $("#CodigoFuncionario").change(function () {
@@ -208,7 +210,7 @@
 
 
         });
-   </script>
+    </script>
 </body>
 
 </html>
