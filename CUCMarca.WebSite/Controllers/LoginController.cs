@@ -43,7 +43,10 @@ namespace CUCMarca.WebSite.Controllers
             ViewBag.url = ConfigurationManager.AppSettings["APIurl"];
             if (!ModelState.IsValid)
             {
-                ModelState.AddModelError("", "Verifique los datos");
+                string messages = string.Join("; ", ModelState.Values
+                                        .SelectMany(x => x.Errors)
+                                        .Select(x => x.ErrorMessage));
+                ModelState.AddModelError("", "Verifique los datos " + messages);
                 return View(login);
             }
             try {
