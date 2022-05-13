@@ -1,6 +1,7 @@
 ﻿using CUCMarca.DataAccess;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -271,6 +272,144 @@ namespace CUCMarca.BusinessServices
             TipoFuncionario id = entities.TipoFuncionario.FirstOrDefault<TipoFuncionario>(x => x.TipoFuncionarioID == tipoID);
             entities.TipoFuncionario.Remove(id);
             return entities.SaveChanges();
+        }
+        #endregion
+
+        #region Generacion de inconsistencias
+        /// <summary>
+        /// Este método se encarga de generar inconsistencias para la fecha que se le indique
+        /// </summary>
+        /// <param name="date">Fecha de la inconsistencia</param>
+        /// <param name="periods">Periodos para los que se debe correr el proceso, para buscar horarios activos</param>
+        /// <returns>0 en caso de correr sin error, -1 en caso de caídas</returns>
+        public async Task<int> GenerarInconsistencias(DateTime date, params int [] periods) 
+        {
+            try
+            {
+                int day = ((int)date.DayOfWeek);
+                int year = date.Year;
+                int minutosGracia = int.Parse(ConfigurationManager.AppSettings["minutosGracia"]);
+                int llegadaTardia = int.Parse(ConfigurationManager.AppSettings["llegadaTardia"]);
+                int omisionEntrada = int.Parse(ConfigurationManager.AppSettings["omisionEntrada"]);
+                int omisionSalida = int.Parse(ConfigurationManager.AppSettings["omisionSalida"]);
+                int ausencia = int.Parse(ConfigurationManager.AppSettings["ausencia"]);
+                int salidaAnticipada = int.Parse(ConfigurationManager.AppSettings["salidaAnticipada"]);
+                foreach (int period in periods)
+                {
+                    //Primero se obtienen los funcionarios con horarios activos en el respectivo periodo indicado
+                    //para el día de la semana de la fecha indicada
+                    var funcionarios = from F in entities.Funcionario
+                                       join FA in entities.FuncionarioArea on F.FuncionarioID equals FA.FuncionarioID
+                                       join H in entities.Horario on FA.CodigoFuncionario equals H.CodigoFuncionario
+                                       join HD in entities.HorarioDetalle on H.HorarioId equals HD.HorarioID
+                                       where F.Estado == 1 && H.Estado == 1 && H.Anio == year && H.Cuatrimestre == period && HD.Dia == day
+                                       select new
+                                       {
+                                           F.Nombre,
+                                           F.Apellido,
+                                           F.Correo,
+                                           FA.CodigoFuncionario,
+                                           FA.FuncionarioID,
+                                           FA.AreaID,
+                                           H.HorarioId,
+                                           HD.Dia,
+                                           HD.HoraIngreso,
+                                           HD.MinutoIngreso,
+                                           HD.HoraSalida,
+                                           HD.MinutoSalida
+                                       };
+                    foreach (var funcionario in funcionarios)
+                    {
+                        //Se obtiene las marcas de acuerdo a lo indicado en los datos de los funcionarios con sus horarios
+                        var asistencia = from A in entities.Asistencia
+                                         where A.CodigoFuncionario == funcionario.CodigoFuncionario &&
+                                               A.FechaAsistencia.Day == date.Day && A.FechaAsistencia.Month == date.Month &&
+                                               A.FechaAsistencia.Year == date.Year
+                                         select A;
+                        //Se revisa la marca de entrada:
+                        var marcaEntrada = from A in asistencia
+                                           where A.TipoMarca == "E"
+                                           select A.FechaAsistencia;
+                        var marcaSalida = from A in asistencia
+                                          where A.TipoMarca == "S"
+                                          select A.FechaAsistencia;
+
+                        //Realizó ninguna marca, es una ausencia
+                        if (marcaEntrada.Count() == 0 && marcaSalida.Count() == 0)
+                        {
+                            //Se registra la ausencia
+                            EscribirInconsistencia(funcionario.HorarioId, funcionario.CodigoFuncionario, date, ausencia);
+                        }
+                        else //En este esccenario, registró alguna de las marcas
+                        {
+                            if (marcaEntrada.Count() == 0)
+                            {
+                                //generar la inconsistencia de que no marcó la entrada
+                                EscribirInconsistencia(funcionario.HorarioId, funcionario.CodigoFuncionario, date, omisionEntrada);
+                            }
+                            else
+                            {
+                                //Se toma la menor de las horas de marca
+                                DateTime horaMarca = marcaEntrada.Min();
+                                if (horaMarca.AddMinutes(-minutosGracia).Hour > funcionario.HoraIngreso //Se pasó una hora o más...
+                                    || horaMarca.Hour == funcionario.HoraIngreso && horaMarca.AddMinutes(-minutosGracia).Minute > (funcionario.MinutoIngreso)) //Se pasó minutos
+                                {
+                                    //Inconsistencia porque marcó tarde
+                                    EscribirInconsistencia(funcionario.HorarioId, funcionario.CodigoFuncionario, date, llegadaTardia);
+                                }
+                            }
+                            if (marcaSalida.Count() == 0)
+                            {
+                                // generar la inconsistencia de que no marcó la salida
+                                EscribirInconsistencia(funcionario.HorarioId, funcionario.CodigoFuncionario, date, omisionSalida);
+
+                            }
+                            else
+                            {
+                                //Se toma la mayor de las marcas de salida
+                                DateTime horaMarca = marcaSalida.Max();
+                                if (horaMarca.AddMinutes(minutosGracia).Hour < funcionario.HoraSalida //Se pasó una hora o más...
+                                    || horaMarca.Hour == funcionario.HoraSalida && horaMarca.AddMinutes(minutosGracia).Minute < (funcionario.MinutoSalida)) //Se pasó minutos
+                                {
+                                    //Inconsistencia porque marcó tarde
+                                    EscribirInconsistencia(funcionario.HorarioId, funcionario.CodigoFuncionario, date, salidaAnticipada);
+                                }
+
+                            }
+                        }
+                    }
+                }
+                return await entities.SaveChangesAsync();
+            }
+            catch
+            {
+                return -1;
+            }
+        }
+
+        private void EscribirInconsistencia(int horarioID, string codigoFuncionario, DateTime fechaInconsistencia, int tipoInconsistencia)
+        {
+            var query = entities.Inconsistencia.Where<Inconsistencia>(x => x.HorarioID == horarioID && x.CodigoFuncionario == codigoFuncionario
+                                                                        && x.FechaInconsistencia == fechaInconsistencia && x.TipoInconsistenciaID == tipoInconsistencia);
+
+            //Si ya se había registrado una inconsistencia, entonces no se vuelve a registrar
+            if (query.Count() > 0) return;
+            byte estado = 1;
+            bool notificar = true;
+            string registradoPor = "Proceso";
+            Inconsistencia inconsistencia = new Inconsistencia()
+            { 
+                HorarioID = horarioID,
+                CodigoFuncionario = codigoFuncionario,
+                FechaInconsistencia = fechaInconsistencia,
+                Estado = estado,
+                Notificar = notificar,
+                TipoInconsistenciaID = tipoInconsistencia,
+                RegistradoPor = registradoPor
+            };
+            entities.Inconsistencia.Add(inconsistencia);
+            
+
         }
         #endregion
 
