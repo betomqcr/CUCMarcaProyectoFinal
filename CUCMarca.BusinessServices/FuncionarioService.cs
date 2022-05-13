@@ -387,13 +387,20 @@ namespace CUCMarca.BusinessServices
             }
         }
 
+        /// <summary>
+        /// Este método escribe una inconsistencia en la tabla
+        /// </summary>
+        /// <param name="horarioID">El identificador del horario por el cual se genera la inconsistencia</param>
+        /// <param name="codigoFuncionario">El funcionario al que se le generó la inconsistencia</param>
+        /// <param name="fechaInconsistencia">La fecha en que ocurrió la inconsistencia</param>
+        /// <param name="tipoInconsistencia">El tipo de la inconsistencia de acuerdo al catálogo</param>
         private void EscribirInconsistencia(int horarioID, string codigoFuncionario, DateTime fechaInconsistencia, int tipoInconsistencia)
         {
             var query = entities.Inconsistencia.Where<Inconsistencia>(x => x.HorarioID == horarioID && x.CodigoFuncionario == codigoFuncionario
                                                                         && x.FechaInconsistencia == fechaInconsistencia && x.TipoInconsistenciaID == tipoInconsistencia);
-
             //Si ya se había registrado una inconsistencia, entonces no se vuelve a registrar
             if (query.Count() > 0) return;
+            //TODO: considerar las excepciones
             byte estado = 1;
             bool notificar = true;
             string registradoPor = "Proceso";
@@ -408,8 +415,6 @@ namespace CUCMarca.BusinessServices
                 RegistradoPor = registradoPor
             };
             entities.Inconsistencia.Add(inconsistencia);
-            
-
         }
         #endregion
 
