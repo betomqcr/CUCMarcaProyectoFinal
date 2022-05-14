@@ -103,6 +103,7 @@
             this.btnExit.TabIndex = 0;
             this.btnExit.Text = "Salir";
             this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // pbMain
             // 
@@ -165,6 +166,7 @@
             // 
             // lblMessages
             // 
+            this.lblMessages.BackColor = System.Drawing.SystemColors.Control;
             this.lblMessages.Name = "lblMessages";
             this.lblMessages.Size = new System.Drawing.Size(70, 17);
             this.lblMessages.Text = "(Esperando)";

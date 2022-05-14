@@ -17,7 +17,8 @@ namespace CUCMarca.Procesos
         {
             InitializeComponent();
             Reset();
-            dtpProcess.Value = DateTime.Now;
+            dtpProcess.Value = DateTime.Now.AddDays(-1);
+            dtpProcess.MaxDate = DateTime.Now.AddDays(-1);
         }
 
         public void Decrement()
@@ -41,7 +42,7 @@ namespace CUCMarca.Procesos
             pbMain.Maximum = 1;
             pbMain.Minimum = 0;
             pbMain.Value = 0;
-           
+
         }
 
         public void SetWork(int work)
@@ -49,16 +50,26 @@ namespace CUCMarca.Procesos
             pbMain.Maximum = work;
         }
 
+        private void lockGUI()
+        {
+            this.Enabled = false;
+        }
+        private void unlockGUI()
+        {
+            this.Enabled = true;
+        }
+
         private async void button1_Click(object sender, EventArgs e)
         {
             Reset();
+            lockGUI();
             try
             {
                 DateTime dt = dtpProcess.Value;
                 String[] arr = txtPeriods.Text.Split(' ', ',');
                 int[] periods = Array.ConvertAll(arr, int.Parse);
                 FuncionarioService service = new FuncionarioService();
-                await service.GenerarInconsistencias(dt, 
+                await service.GenerarInconsistencias(dt,
                     this,
                     periods);
 
@@ -67,6 +78,15 @@ namespace CUCMarca.Procesos
             {
                 Console.WriteLine(exc);
             }
+            finally
+            {
+                unlockGUI();
+            }
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

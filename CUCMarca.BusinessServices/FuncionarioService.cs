@@ -323,6 +323,7 @@ namespace CUCMarca.BusinessServices
                     monitor.SetWork(funcionarios.Count());
                     foreach (var funcionario in funcionarios)
                     {
+                        //await Task.Delay(1000);
                         monitor.Increment();
                         //Se obtiene las marcas de acuerdo a lo indicado en los datos de los funcionarios con sus horarios
                         var asistencia = from A in entities.Asistencia
@@ -382,6 +383,7 @@ namespace CUCMarca.BusinessServices
                         }
                     }
                 }
+                monitor.DisplayMessage("Finalizado");
                 return await entities.SaveChangesAsync();
             }
             catch
