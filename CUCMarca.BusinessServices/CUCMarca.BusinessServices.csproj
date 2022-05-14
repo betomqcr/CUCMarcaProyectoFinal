@@ -59,6 +59,7 @@
     <Compile Include="FuncionarioService.cs" />
     <Compile Include="HorarioFuncionario.cs" />
     <Compile Include="MarcaService.cs" />
+    <Compile Include="ProgressMonitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SendMail.cs" />
     <Compile Include="UsuariosService.cs" />

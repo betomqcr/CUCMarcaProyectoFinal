@@ -282,7 +282,7 @@ namespace CUCMarca.BusinessServices
         /// <param name="date">Fecha de la inconsistencia</param>
         /// <param name="periods">Periodos para los que se debe correr el proceso, para buscar horarios activos</param>
         /// <returns>0 en caso de correr sin error, -1 en caso de caídas</returns>
-        public async Task<int> GenerarInconsistencias(DateTime date, params int [] periods) 
+        public async Task<int> GenerarInconsistencias(DateTime date, ProgressMonitor monitor, params int [] periods) 
         {
             try
             {
@@ -296,6 +296,7 @@ namespace CUCMarca.BusinessServices
                 int salidaAnticipada = int.Parse(ConfigurationManager.AppSettings["salidaAnticipada"]);
                 foreach (int period in periods)
                 {
+                    monitor.DisplayMessage(string.Format("Revisando periodo {0}", period));
                     //Primero se obtienen los funcionarios con horarios activos en el respectivo periodo indicado
                     //para el día de la semana de la fecha indicada
                     var funcionarios = from F in entities.Funcionario
@@ -318,8 +319,11 @@ namespace CUCMarca.BusinessServices
                                            HD.HoraSalida,
                                            HD.MinutoSalida
                                        };
+                    monitor.Reset();
+                    monitor.SetWork(funcionarios.Count());
                     foreach (var funcionario in funcionarios)
                     {
+                        monitor.Increment();
                         //Se obtiene las marcas de acuerdo a lo indicado en los datos de los funcionarios con sus horarios
                         var asistencia = from A in entities.Asistencia
                                          where A.CodigoFuncionario == funcionario.CodigoFuncionario &&
@@ -374,7 +378,6 @@ namespace CUCMarca.BusinessServices
                                     //Inconsistencia porque marcó tarde
                                     EscribirInconsistencia(funcionario.HorarioId, funcionario.CodigoFuncionario, date, salidaAnticipada);
                                 }
-
                             }
                         }
                     }
