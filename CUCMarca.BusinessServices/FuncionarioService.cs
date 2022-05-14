@@ -279,7 +279,7 @@ namespace CUCMarca.BusinessServices
         /// <summary>
         /// Este método se encarga de generar inconsistencias para la fecha que se le indique
         /// </summary>
-        /// <param name="date">Fecha de la inconsistencia</param>
+        /// <param name="date">Fecha de la inconsistencia (debe ser sin minutos ni segundos 00:00)</param>
         /// <param name="periods">Periodos para los que se debe correr el proceso, para buscar horarios activos</param>
         /// <returns>0 en caso de correr sin error, -1 en caso de caídas</returns>
         public async Task<int> GenerarInconsistencias(DateTime date, ProgressMonitor monitor, params int [] periods) 
