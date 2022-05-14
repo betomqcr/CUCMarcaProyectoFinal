@@ -65,7 +65,8 @@ namespace CUCMarca.Procesos
             lockGUI();
             try
             {
-                DateTime dt = dtpProcess.Value;
+                //La fecha debe ser sin minutos ni segundos
+                DateTime dt = dtpProcess.Value.Date;
                 String[] arr = txtPeriods.Text.Split(' ', ',');
                 int[] periods = Array.ConvertAll(arr, int.Parse);
                 FuncionarioService service = new FuncionarioService();
